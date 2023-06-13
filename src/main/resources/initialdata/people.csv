@@ -1,0 +1,314 @@
+﻿Employee_Name,Salary,Job_Title,DOB,Sex
+"Loten, Aidan",120000,Fullstack Software Engineer,1/1/99,M
+"Hawkins, Alice",150000,Principal Upper School,2/2/99,F
+"Adinolfi, Wilson  K",62506,Production Technician I,7/10/83,M
+"Ait Sidi, Karthikeyan   ",104437,Sr. DBA,5/5/75,M 
+"Akinkuolie, Sarah",64955,Production Technician II,9/19/88,F
+"Alagbe,Trina",64991,Production Technician I,9/27/88,F
+"Anderson, Carol ",50825,Production Technician I,9/8/89,F
+"Anderson, Linda  ",57568,Production Technician I,5/22/77,F
+"Andreola, Colby",95660,Software Engineer,5/24/79,F
+"Athwal, Sam",59365,Production Technician I,2/18/83,M 
+"Bachiochi, Linda",47837,Production Technician I,2/11/70,F
+"Bacong, Alejandro ",50178,IT Support,1/7/88,M 
+"Baczenski, Rachael  ",54670,Production Technician I,1/12/74,F
+"Barbara, Thomas",47211,Production Technician I,2/21/74,M 
+"Barbossa, Hector",92328,Data Analyst,7/4/88,M 
+"Barone, Francesco  A",58709,Production Technician I,7/20/83,M 
+"Barton, Nader",52505,Production Technician I,7/15/77,M 
+"Bates, Norman",57834,Production Technician I,10/18/81,M 
+"Beak, Kimberly  ",70131,Production Technician II,4/17/66,F
+"Beatrice, Courtney ",59026,Production Technician I,10/27/70,F
+"Becker, Renee",110000,Database Administrator,4/4/86,F
+"Becker, Scott",53250,Production Technician I,4/6/79,M 
+"Bernstein, Sean",51044,Production Technician I,12/22/70,M 
+"Biden, Lowan  M",64919,Production Technician I,12/27/58,F
+"Billis, Helen",62910,Production Technician I,9/1/89,F
+"Blount, Dianna",66441,Production Technician II,9/21/90,F
+"Bondwell, Betsy",57815,Production Technician II,1/16/67,F
+"Booth, Frank",103613,Enterprise Architect,7/30/64,M 
+"Boutwell, Bonalyn",106367,Sr. Accountant,4/4/87,F
+"Bozzi, Charles",74312,Production Manager,3/10/70,M 
+"Brill, Donna",53492,Production Technician I,8/24/90,F
+"Brown, Mia",63000,Accountant I,11/24/87,F
+"Buccheri, Joseph  ",65288,Production Technician II,7/28/83,M 
+"Bugali, Josephine ",64375,Production Technician I,10/30/69,F
+"Bunbury, Jessica",74326,Area Sales Manager,6/1/64,F
+"Burke, Joelle",63763,Production Technician II,3/2/80,F
+"Burkett, Benjamin ",62162,Production Technician II,8/19/77,M 
+"Cady, Max ",77692,Software Engineering Manager,11/22/66,M 
+"Candie, Calvin",72640,Production Manager,8/9/83,M 
+"Carabbio, Judith",93396,Software Engineer,4/5/87,F
+"Carey, Michael  ",52846,Production Technician I,2/2/83,M 
+"Carr, Claudia  N",100031,Sr. DBA,6/6/86,F
+"Carter, Michelle ",71860,Area Sales Manager,5/15/63,F
+"Chace, Beatrice ",61656,Production Technician I,1/2/51,F
+"Champaigne, Brian",110929,BI Director,2/9/72,M 
+"Chan, Lin",54237,Production Technician I,2/12/79,F
+"Chang, Donovan  E",60380,Production Technician I,8/24/83,M 
+"Chigurh, Anton",66808,Area Sales Manager,6/11/70,M 
+"Chivukula, Enola",64786,Production Technician I,8/27/83,F
+"Cierpiszewski, Caroline  ",64816,Production Technician I,5/31/88,F
+"Clayton, Rick",68678,IT Support,9/5/85,M 
+"Cloninger, Jennifer",64066,Production Technician II,8/31/81,F
+"Close, Phil",59369,Production Technician II,11/25/78,M 
+"Clukey, Elijian",50373,Production Technician I,8/26/80,M 
+"Cockel, James",63108,Production Technician I,9/8/77,M 
+"Cole, Spencer",59144,Production Technician I,8/12/79,M 
+"Corleone, Michael",68051,Production Manager,12/17/75,M 
+"Corleone, Vito",170500,Director of Operations,3/19/83,M 
+"Cornett, Lisa ",63381,Production Technician I,3/31/77,F
+"Costello, Frank",83552,Data Analyst,8/26/86,M 
+"Crimmings,   Jean",56149,Production Technician I,4/10/87,F
+"Cross, Noah",92329,Sr. Network Engineer,9/9/65,M 
+"Daneault, Lynn",65729,Sales Manager,4/19/90,F
+"Daniele, Ann  ",85028,Sr. Network Engineer,1/18/52,F
+"Darson, Jene'ya ",57583,Production Technician I,11/5/78,F
+"Davis, Daniel",56294,Production Technician II,9/14/79,M 
+"Dee, Randy",56991,Production Technician I,4/15/88,M 
+"DeGweck,  James",55722,Production Technician I,10/31/77,M 
+"Del Bosque, Keyla",101199,Software Engineer,7/5/79,F
+"Delarge, Alex",61568,Area Sales Manager,11/2/75,M 
+"Demita, Carla",58275,Production Technician II,2/25/51,F
+"Desimone, Carl ",53189,Production Technician I,4/19/67,M 
+"DeVito, Tommy",96820,BI Developer,9/4/83,M 
+"Dickinson, Geoff ",51259,Production Technician I,11/15/82,M 
+"Dietrich, Jenna  ",59231,Area Sales Manager,5/14/87,F
+"DiNocco, Lily ",61584,Production Technician I,12/2/78,F
+"Dobrin, Denisa  S",46335,Production Technician I,10/7/86,F
+"Dolan, Linda",70621,IT Support,7/18/88,F
+"Dougall, Eric",138888,IT Manager - Support,7/9/70,M 
+"Driver, Elle",74241,Area Sales Manager,11/8/88,F
+"Dunn, Amy  ",75188,Production Manager,11/28/73,F
+"Dunne, Amy",62514,Production Technician I,9/23/73,F
+"Eaton, Marianne",60070,Production Technician I,9/5/91,F
+"Engdahl, Jean",48888,Production Technician I,5/31/74,M 
+"England, Rex",54285,Production Technician I,8/25/78,M 
+"Erilus, Angela",56847,Production Technician II,8/25/89,F
+"Estremera, Miguel",60340,Production Technician I,9/2/83,M 
+"Evensen, April",59124,Production Technician I,5/6/89,F
+"Exantus, Susan",99280,Software Engineer,5/15/87,F
+"Faller, Megan ",71776,Production Technician II,9/22/78,F
+"Fancett, Nicole",65902,Production Technician II,9/27/87,F
+"Ferguson, Susan",57748,Production Technician I,4/14/55,F
+"Fernandes, Nilson  ",64057,Production Technician I,10/18/89,M 
+"Fett, Boba",53366,Network Engineer,6/18/87,M 
+"Fidelia,  Libby",58530,Production Technician I,3/16/81,F
+"Fitzpatrick, Michael  J",72609,Production Technician II,10/1/81,M 
+"Foreman, Tanya",55965,Production Technician II,11/8/83,F
+"Forrest, Alex",70187,Area Sales Manager,7/7/75,M 
+"Foss, Jason",178000,IT Director,7/5/80,M 
+"Foster-Baker, Amy",99351,Sr. Accountant,4/16/79,F
+"Fraval, Maruk ",67251,Area Sales Manager,8/28/63,M 
+"Galia, Lisa",65707,IT Support,7/6/68,F
+"Garcia, Raul",52249,Production Technician I,9/15/85,M 
+"Gaul, Barbara",53171,Production Technician I,12/2/83,F
+"Gentry, Mildred",51337,Production Technician I,10/1/90,F
+"Gerke, Melisa",51505,Production Technician I,5/15/70,F
+"Gill, Whitney  ",59370,Area Sales Manager,7/10/71,F
+"Gilles, Alex",54933,Production Technician I,8/9/74,M 
+"Girifalco, Evelyn",57815,Production Technician I,5/8/80,F
+"Givens, Myriam",61555,Area Sales Manager,9/22/89,F
+"Goble, Taisha",114800,Database Administrator,10/23/71,F
+"Goeth, Amon",74679,IT Support,11/24/89,M 
+"Gold, Shenice  ",53018,Production Technician I,6/18/92,F
+"Gonzalez, Cayo",59892,Production Technician I,9/29/69,M 
+"Gonzalez, Juan",68898,Production Technician II,10/12/64,M 
+"Gonzalez, Maria",61242,IT Support,4/16/81,F
+"Good, Susan",66825,Production Technician II,5/25/86,F
+"Gordon, David",48285,Production Technician I,5/21/79,M 
+"Gosciminski, Phylicia  ",66149,Production Technician II,12/8/83,F
+"Goyal, Roxana",49256,Production Technician I,10/9/74,F
+"Gray, Elijiah  ",62957,Production Manager,7/11/81,M 
+"Gross, Paula",63813,Production Technician I,5/21/83,F
+"Gruber, Hans",99020,BI Developer,6/30/89,M 
+"Guilianno, Mike",71707,Area Sales Manager,2/9/69,M 
+"Handschiegl, Joanne",54828,Production Technician I,3/23/77,F
+"Hankard, Earnest",64246,Production Technician II,8/10/88,M 
+"Harrington, Christie ",52177,Production Technician I,8/18/52,F
+"Harrison, Kara",62065,Production Technician I,5/2/74,F
+"Heitzman, Anthony",46998,Production Technician I,1/4/84,M 
+"Hendrickson, Trina",68099,Production Technician II,8/27/72,F
+"Hitchcock, Alfred",70545,Area Sales Manager,9/14/88,M 
+"Homberger, Adrienne  J",63478,Production Technician II,2/16/84,F
+"Horton, Jayne",97999,Database Administrator,2/21/84,F
+"Houlihan, Debra",180000,Director of Sales,3/17/66,F
+"Howard, Estelle",49920,Administrative Assistant,9/16/85,F
+"Hudson, Jane",55425,Production Technician I,6/10/86,F
+"Hunts, Julissa",69340,Production Technician II,3/11/84,F
+"Hutter, Rosalie",64995,Production Technician II,5/7/92,F
+"Huynh, Ming",68182,Production Technician II,9/22/76,F
+"Immediato, Walter",83082,Production Manager,11/15/76,M 
+"Ivey, Rose ",51908,Production Technician I,1/28/91,F
+"Jackson, Maryellen",61242,Production Technician I,9/11/72,F
+"Jacobi, Hannah  ",45069,Production Technician I,3/22/66,F
+"Jeannite, Tayana",60724,Production Technician II,11/6/86,F
+"Jhaveri, Sneha  ",60436,Production Technician I,4/13/64,F
+"Johnson, George",46837,Production Technician I,8/19/59,M 
+"Johnson, Noelle ",105700,Database Administrator,11/7/86,F
+"Johnston, Yen",63322,Production Technician II,9/8/69,F
+"Jung, Judy  ",61154,Production Technician I,4/17/86,F
+"Kampew, Donysha",68999,Sales Manager,11/11/89,F
+"Keatts, Kramer ",50482,Production Technician I,1/19/76,M 
+"Khemmich, Bartholemew",65310,Area Sales Manager,11/27/79,M 
+"King, Janet",250000,President & CEO,9/21/54,F
+"Kinsella, Kathleen  ",54005,Production Technician I,12/8/73,F
+"Kirill, Alexandra  ",45433,Production Technician I,10/8/70,F
+"Knapp, Bradley  J",46654,Production Technician I,11/10/77,M 
+"Kretschmer, John",63973,Production Technician I,2/2/80,M 
+"Kreuger, Freddy",71339,Area Sales Manager,2/24/69,M 
+"Lajiri,  Jyoti",93206,Sr. Network Engineer,4/23/86,M 
+"Landa, Hans",82758,Production Manager,7/1/72,M 
+"Langford, Lindsey",66074,Production Technician II,7/25/79,F
+"Langton, Enrico",46120,Production Technician I,12/9/86,M 
+"LaRotonda, William  ",64520,Accountant I,4/26/84,M 
+"Latif, Mohammed",61962,Production Technician II,5/9/84,M 
+"Le, Binh",81584,Senior BI Developer,6/14/87,F
+"Leach, Dallas",63676,Production Technician I,1/17/79,F
+"LeBlanc, Brandon  R",93046,Shared Services Manager,6/10/84,M 
+"Lecter, Hannibal",64738,Production Technician I,9/2/82,M 
+"Leruth, Giovanni",70468,Area Sales Manager,12/27/88,M 
+"Liebig, Ketsia",77915,Production Manager,10/26/81,F
+"Linares, Marilyn ",52624,Production Technician I,3/26/81,F
+"Linden, Mathew",63450,Production Technician II,3/19/79,M 
+"Lindsay, Leonara ",51777,IT Support,10/5/88,F
+"Lundy, Susan",67237,Production Technician II,12/26/76,F
+"Lunquist, Lisa",73330,Production Technician II,3/28/82,F
+"Lydon, Allison",52057,Production Technician I,10/22/75,F
+"Lynch, Lindsay",47434,Production Technician I,2/14/73,F
+"MacLennan, Samuel",52788,Production Technician I,11/9/72,M 
+"Mahoney, Lauren  ",45395,Production Technician I,7/7/86,F
+"Manchester, Robyn",62385,Production Technician II,8/25/76,F
+"Mancuso, Karen",68407,Production Technician II,12/10/86,F
+"Mangal, Debbie",61349,Production Technician I,11/7/74,F
+"Martin, Sandra",105688,Software Engineer,11/7/87,F
+"Maurice, Shana",54132,Production Technician I,11/22/77,F
+"Carthy, B'rigit",55315,Production Technician II,5/21/87,F
+"Mckenna, Sandy",62810,Production Technician I,1/7/87,F
+"McKinzie, Jac",63291,Area Sales Manager,7/1/84,M 
+"Meads, Elizabeth",62659,Production Technician I,5/30/68,F
+"Medeiros, Jennifer",55688,Production Technician I,9/22/76,F
+"Miller, Brannon",83667,Production Manager,8/10/81,M 
+"Miller, Ned",55800,Production Technician II,6/29/85,M 
+"Monkfish, Erasumus",58207,Production Technician II,8/17/92,M 
+"Monroe, Peter",157000,IT Manager - Infra,10/5/86,M 
+"Monterro, Luisa",72460,Production Technician II,4/24/70,F
+"Moran, Patrick",72106,Production Technician II,12/3/76,M 
+"Morway, Tanya",52599,Network Engineer,4/4/79,F
+"Motlagh,  Dawn",63430,Production Technician I,7/7/84,F
+"Moumanil, Maliki ",74417,Production Technician II,12/1/74,M 
+"Myers, Michael",57575,Production Technician I,4/18/80,M 
+"Navathe, Kurt",87921,Senior BI Developer,4/25/70,M 
+"Ndzi, Colombui",50470,Production Technician I,5/2/89,M 
+"Ndzi, Horia",46664,Production Technician I,3/28/83,M 
+"Newman, Richard ",48495,Production Technician I,4/8/77,M 
+"Ngodup, Shari ",52984,Production Technician I,6/3/67,F
+"Nguyen, Dheepa",63695,Area Sales Manager,3/31/89,F
+"Nguyen, Lei-Ming",62061,Production Technician I,7/7/84,F
+"Nowlan, Kristie",66738,Production Technician II,11/23/85,F
+"O'hare, Lynn",52674,Production Technician I,9/30/80,F
+"Oliver, Brooke ",71966,Production Technician II,2/11/52,F
+"Onque, Jasmine",63051,Area Sales Manager,5/11/90,F
+"Osturnka, Adeel",47414,Production Technician I,12/11/76,M 
+"Owad, Clinton",53060,Production Technician I,11/24/79,M 
+"Ozark, Travis",68829,Area Sales Manager,5/19/82,M 
+"Panjwani, Nina",63515,Production Technician I,5/1/79,F
+"Patronick, Lucas",108987,Software Engineer,2/20/79,M 
+"Pearson, Randall",93093,Data Analyst,9/5/84,M 
+"Smith, Martin",53564,Production Technician I,3/17/88,M 
+"Pelletier, Ermine",60270,Production Technician II,7/18/89,F
+"Perry, Shakira",45998,Production Technician I,7/20/86,F
+"Peters, Lauren",57954,Production Technician II,8/17/86,F
+"Peterson, Ebonee  ",74669,Production Manager,5/9/77,F
+"Petingill, Shana  ",74226,Production Technician II,3/10/79,F
+"Petrowsky, Thelma",93554,Data Analyst,9/16/84,F
+"Pham, Hong",64724,Production Technician I,3/6/88,M 
+"Pitt, Brad ",47001,Production Technician I,11/23/81,M 
+"Potts, Xana",61844,Area Sales Manager,8/29/88,F
+"Power, Morissa",46799,Production Technician I,10/15/84,F
+"Punjabhi, Louis  ",59472,Production Technician I,6/19/61,M 
+"Purinton, Janine",46430,Production Technician I,9/22/70,F
+"Quinn, Sean",83363,Software Engineer,11/6/84,M 
+"Rachael, Maggie",95920,BI Developer,5/12/80,F
+"Rarrick, Quinn",61729,Production Technician I,12/31/84,M 
+"Ren, Kylo",61809,Area Sales Manager,10/12/54,M 
+"Rhoads, Thomas",45115,Production Technician I,7/22/82,M 
+"Rivera, Haley  ",46738,Production Technician I,1/12/73,F
+"Roberson, May",64971,Production Technician II,9/5/81,F
+"Robertson, Peter",55578,Production Technician II,7/3/72,M 
+"Robinson, Alain  ",50428,Production Technician I,1/7/74,M 
+"Robinson, Cherly",61422,Production Technician I,1/7/85,F
+"Robinson, Elias",63353,Production Technician I,1/28/85,M 
+"Roby, Lori ",89883,Data Analyst,10/11/81,F
+"Roehrich, Bianca",120000,Principal Data Architect,5/27/73,F
+"Roper, Katie",150290,Data Architect,11/21/72,F
+"Rose, Ashley  ",60627,Production Technician I,12/5/74,F
+"Rossetti, Bruno",53180,Production Technician I,3/18/87,M 
+"Roup,Simon",140920,IT Manager - DB,4/5/73,M 
+"Ruiz, Ricardo",148999,IT Manager - DB,1/4/64,M 
+"Saada, Adell",86214,Software Engineer,7/24/86,F
+"Saar-Beckles, Melinda",47750,Production Technician I,6/6/68,F
+"Sadki, Nore  ",46428,Production Technician I,12/21/74,M 
+"Sahoo, Adil",57975,Production Technician II,4/26/86,M 
+"Salter, Jason",88527,Data Analyst ,12/17/87,M 
+"Sander, Kamrin",56147,Production Technician I,7/10/88,F
+"Sewkumar, Nori",50923,Production Technician I,3/10/75,F
+"Shepard, Anita ",50750,Network Engineer,4/14/81,F
+"Shields, Seffi",52087,Production Technician I,8/24/85,F
+"Simard, Kramer",87826,Data Analyst,2/8/70,M 
+"Singh, Nan ",51920,Administrative Assistant,5/19/88,F
+"Sloan, Constance",63878,Production Technician II,11/25/87,F
+"Smith, Joe",60656,Production Technician II,10/30/63,M 
+"Smith, John",72992,Sales Manager,8/16/84,M 
+"Smith, Leigh Ann",55000,Administrative Assistant,6/14/87,F
+"Smith, Sade",58939,Production Technician I,2/2/65,F
+"Soto, Julia ",66593,IT Support,3/12/73,F
+"Soze, Keyser",87565,Sr. Network Engineer,2/9/83,M 
+"Sparks, Taylor  ",64021,Production Technician I,7/20/68,F
+"Spirea, Kelley",65714,Production Manager,9/30/75,F
+"Squatrito, Kristen",62425,Production Technician I,3/26/73,F
+"Stanford,Barbara  M",47961,Production Technician I,8/25/82,F
+"Stansfield, Norman",58273,Area Sales Manager,5/9/74,M 
+"Steans, Tyrone  ",63003,Accountant I,9/1/86,M 
+"Stoica, Rick",61355,Production Technician I,3/14/85,M 
+"Strong, Caitrin",60120,Area Sales Manager,5/12/89,F
+"Sullivan, Kissy ",63682,Production Manager,3/28/78,F
+"Sullivan, Timothy",63025,Production Technician I,10/7/82,M 
+"Sutwell, Barbara",59238,Production Technician I,8/15/68,F
+"Szabo, Andrew",92989,Software Engineer,5/6/83,M 
+"Tannen, Biff",90100,BI Developer,10/24/87,M 
+"Tavares, Desiree  ",60754,Production Technician I,4/3/75,F
+"Tejeda, Lenora ",72202,Production Technician II,5/24/53,F
+"Terry, Sharlene ",58370,Area Sales Manager,5/7/65,F
+"Theamstern, Sophia",48413,Production Technician I,5/9/65,F
+"Thibaud, Kenneth",67176,Production Technician II,9/16/75,M 
+"Tippett, Jeanette",56339,Production Technician I,6/5/67,F
+"Torrence, Jack",64397,Area Sales Manager,1/15/68,M 
+"Trang, Mei",63025,Production Technician I,5/16/83,F
+"Tredinnick, Neville ",75281,Network Engineer,5/5/88,M 
+"True, Edward",100416,Software Engineer,6/14/83,M 
+"Trzeciak, Cybil",74813,Production Technician II,3/15/85,F
+"Turpin, Jumil",76029,Network Engineer,3/31/69,M 
+"Valentin,Jackie",57859,Area Sales Manager,5/23/91,F
+"Veera, Abdellah ",58523,Production Technician I,1/31/87,M 
+"Vega, Vincent",88976,Production Manager,10/10/68,M 
+"Villanueva, Noah",55875,Area Sales Manager,7/11/89,M 
+"Voldemort, Lord",113999,Database Administrator,8/7/86,M 
+"Volk, Colleen",49773,Production Technician I,6/3/86,F
+"Von Massenbach, Anna",62068,Production Technician I,4/6/85,F
+"Walker, Roger",66541,Production Technician II,2/10/76,M 
+"Wallace, Courtney  E",80512,Production Manager,11/14/55,F
+"Wallace, Theresa",50274,Production Technician I,8/2/80,F
+"Wang, Charlie",84903,Senior BI Developer,7/8/81,M 
+"Warfield, Sarah",107226,Sr. Network Engineer,5/2/78,F
+"Whittier, Scott",58371,Production Technician I,5/24/87,M 
+"Wilber, Barry",55140,Production Technician I,9/9/65,M 
+"Wilkes, Annie",58062,Production Technician I,7/30/83,F
+"Williams, Jacquelyn  ",59728,Production Technician I,10/2/69,F
+"Winthrop, Jordan  ",70507,Production Technician II,11/7/58,M 
+"Wolk, Hang  T",60446,Production Technician II,4/20/85,F
+"Woodson, Jason",65893,Production Technician II,5/11/85,M 
+"Ybarra, Catherine ",48513,Production Technician I,5/4/82,F
+"Zamora, Jennifer",220450,CIO,8/30/79,F
+"Zhou, Julia",89292,Data Analyst,2/24/79,F
+"Zima, Colleen",45046,Production Technician I,8/17/78,F

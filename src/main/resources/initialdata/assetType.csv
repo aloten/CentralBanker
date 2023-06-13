@@ -1,0 +1,9 @@
+name,description
+FOOD,food
+TOOL,tool(s)
+LUMBER,wood
+CASH,money that can be used to buy an asset in a transaction immediately
+IMMEDIATE_CONSUMABLE,finished product or service that is consumed immediately by a person
+LONG_TERM_CONSUMABLE,finished product or service that depreciates over time, can be bought by person or company--aka CAPEX
+RAW_MATERIAL,an input for another asset of another asset type such as consumable
+PROPERTY,property like land or a house or both
