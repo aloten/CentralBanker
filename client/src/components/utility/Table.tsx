@@ -1,4 +1,4 @@
-import EntityModel from '../../interfaces/EntityModels/EntityModel';
+import EntityModel from '../../interfaces/entities/EntityModel';
 
 interface TableProps<T> {
   data: T[];

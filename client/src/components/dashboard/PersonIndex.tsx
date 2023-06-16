@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import StyledTable from '../../styles/StyledTable';
 import Table from '../utility/Table';
 import TruncatedPerson from '../../interfaces/TruncatedPerson';
-import Person from '../../interfaces/EntityModels/Person';
+import Person from '../../interfaces/entities/Person';
 
 const StyledPersonIndex = styled(StyledTable)``;
 

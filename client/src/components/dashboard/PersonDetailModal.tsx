@@ -1,24 +1,57 @@
-import Person from '../../interfaces/EntityModels/Person';
-import Rotated2ColumnStyledTable from '../../styles/Rotated2ColumnStyledTable';
-import BalanceSheetView from './BalanceSheetView';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Asset from '../../interfaces/entities/Asset';
+import Person from '../../interfaces/entities/Person';
+import Rotated2ColumnStyledTable from '../../styles/Rotated2ColumnStyledTable';
+import StyledTable from '../../styles/StyledTable';
+import Table from '../utility/Table';
 
 interface PersonDetailModalProps {
   selectedPersonForModal: Person | null;
 }
 
-const StyledMainAttributesTable = styled(Rotated2ColumnStyledTable)`
-  
-`
+const StyledMainAttributesTable = styled(Rotated2ColumnStyledTable)``;
+
+const fetchAssetData = async (
+  balanceSheetId: number
+): Promise<Asset[] | null> => {
+  try {
+    const response = await axios.get(
+      `/person/assets?balanceSheetId=${balanceSheetId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching people data: ', error);
+    return null;
+  }
+};
 
 const PersonDetailModal = ({
   selectedPersonForModal,
 }: PersonDetailModalProps) => {
+  const [assets, setAssets] = useState<Asset[]>([]);
+
+  useEffect(() => {
+    const fetchData = async (person: Person): Promise<void> => {
+      const data: Asset[] | null = await fetchAssetData(
+        person.financialState.balanceSheet.id
+      );
+      if (data) {
+        setAssets(data);
+        console.log("person detail modal")
+        console.log(data);
+      }
+    };
+
+    if (selectedPersonForModal) {
+      fetchData(selectedPersonForModal);
+    }
+  }, [selectedPersonForModal]);
+
   if (selectedPersonForModal === null) {
     return <div>null person</div>;
   }
-
-  console.log(selectedPersonForModal);
 
   const RotatedTwoColumnTable = ({
     headers,
@@ -51,10 +84,10 @@ const PersonDetailModal = ({
       {selectedPersonForModal ? (
         <div>
           <h2>Person Details</h2>
-          <RotatedTwoColumnTable headers={headers} rowData={rowData} />
-          <BalanceSheetView
-            balanceSheet={selectedPersonForModal.financialState.balanceSheet}
-          />
+          {/* <RotatedTwoColumnTable headers={headers} rowData={rowData} /> */}
+          <StyledTable>
+            <Table data={assets} />
+          </StyledTable>
         </div>
       ) : null}
     </>

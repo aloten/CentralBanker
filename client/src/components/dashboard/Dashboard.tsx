@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import ReactModal from 'react-modal';
 import { useState } from 'react';
 import PersonDetailModal from './PersonDetailModal';
-import Person from '../../interfaces/EntityModels/Person';
+import Person from '../../interfaces/entities/Person';
 
 const StyledDashboard = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const Dashboard = () => {
   const PersonReactModalStyle = {
     content: {
       width: '50%',
-      margin: 'auto'
+      margin: 'auto',
     },
   };
 

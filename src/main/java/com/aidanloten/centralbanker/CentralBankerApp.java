@@ -68,8 +68,20 @@ public class CentralBankerApp {
             logger.info(String.format("\n\n cycle number %d\n\n", cycleNumber));
             logger.info(String.format("\n\nExecuting asset generation in cycle number %d\n\n", cycleNumber));
             gameCycleService.executeAssetGeneration();
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
+            }
             logger.info(String.format("\n\nExecuting market trading in cycle number %d\n\n", cycleNumber));
             gameCycleService.executeMarketTrading();
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
+            }
             logger.info(String.format("\n\nExecuting asset consumption in cycle number %d\n\n", cycleNumber));
             gameCycleService.executeAssetConsumption();
             // Delay the loop for a certain period of time before the next cycle

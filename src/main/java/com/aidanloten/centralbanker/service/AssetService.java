@@ -38,6 +38,10 @@ public class AssetService {
         return assetType1.getName().equals(assetType2.getName());
     }
 
+    public List<Asset> findAssetsByBalanceSheetId(int balanceSheetId) {
+        return assetRepository.findByBalanceSheetId(balanceSheetId);
+    }
+
     public List<Asset> findAssetsFromBalanceSheet(BalanceSheet balanceSheet) {
         return assetRepository.findByBalanceSheet(balanceSheet);
     }

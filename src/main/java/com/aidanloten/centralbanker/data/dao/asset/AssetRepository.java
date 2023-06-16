@@ -11,4 +11,6 @@ import java.util.List;
 public interface AssetRepository extends JpaRepository<Asset, Integer> {
 
     List<Asset> findByBalanceSheet(BalanceSheet balanceSheet);
+
+    List<Asset> findByBalanceSheetId(int balanceSheetId);
 }
