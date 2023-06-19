@@ -7,7 +7,7 @@ const theme = {
   colors: {
     primary: '#222831',
     secondary: '#393E46',
-    tertiary: '#00ADB5',
+    tertiary: '#009879',
     quarnary: '#EEEEEE',
   },
 };
@@ -16,8 +16,8 @@ const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${theme.colors.primary};
-  color: white;
+  /* background-color: ${theme.colors.primary};
+  color: white; */
   height: 100%; 
 `;
 

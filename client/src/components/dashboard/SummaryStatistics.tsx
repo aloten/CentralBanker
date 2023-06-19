@@ -1,11 +1,17 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Rotated2ColumnStyledTable from '../../styles/Rotated2ColumnStyledTable';
+import StyledTable from '../../styles/StyledTable';
 
-const StyledSummaryStatistics = styled(Rotated2ColumnStyledTable)`
+const StyledSummaryStatistics = styled.div`
   table {
     display: flex;
+  }
+  .tableHeader {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
   }
 `;
 interface Economy {
@@ -48,18 +54,20 @@ const SummaryStatistics = () => {
   const rowData = [economy.gdp, economy.moneySupply];
 
   return (
-    <StyledSummaryStatistics className='economyIndex'>
+    <StyledSummaryStatistics className='dashboardItem summaryStatistics'>
       <h3>Economy</h3>
-      <table>
-        <tbody>
-          {headers.map((header, index) => (
-            <tr key={index}>
-              <td>{header}</td>
-              <td>{rowData[index]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <StyledTable>
+        <table>
+          <tbody>
+            {headers.map((header, index) => (
+              <tr key={index}>
+                <td className='tableHeader'>{header}</td>
+                <td>{rowData[index]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </StyledTable>
     </StyledSummaryStatistics>
   );
 };

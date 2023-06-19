@@ -5,7 +5,7 @@ interface Person extends EntityModel {
   firstName: string;
   lastName: string;
   salary: number;
-  // other attributes
+  jobTitle: string;
   financialState: FinancialState;
 }
 

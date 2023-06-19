@@ -2,6 +2,7 @@ package com.aidanloten.centralbanker;
 
 import com.aidanloten.centralbanker.controllers.EconomyController;
 import com.aidanloten.centralbanker.engine.GameCycleService;
+import com.aidanloten.centralbanker.service.GameStateService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
@@ -16,8 +17,10 @@ public class CentralBankerApp {
     GameCycleService gameCycleService;
     @Autowired
     EconomyController economyControllerPersonTrading;
+    @Autowired
+    GameStateService gameStateService;
+
     Logger logger = LoggerFactory.getLogger(CentralBankerApp.class);
-    private boolean isGameRunning = false;
     private Thread engineThread = null;
     private int cycleNumber = 0;
 
@@ -27,12 +30,12 @@ public class CentralBankerApp {
 
     @PostConstruct
     private void startGameEngine() {
+        gameStateService.createNewRunningGameState();
         logger.info("Initializing economy");
         economyControllerPersonTrading.initializeSystem();
         economyControllerPersonTrading.displayEconomyStats();
 
         logger.info("Starting game engine");
-        isGameRunning = true;
         // Start the game loop in a separate thread
         engineThread = new Thread(this::runEngine);
         engineThread.start();
@@ -40,7 +43,7 @@ public class CentralBankerApp {
 
     @PreDestroy
     public void stopEngine() {
-        isGameRunning = false;
+        gameStateService.setGameRunningFalse();
         if (engineThread != null) {
             try {
                 engineThread.join();
@@ -52,18 +55,14 @@ public class CentralBankerApp {
     }
 
     public void resumeEngine() {
-        if (!isGameRunning) {
+        if (gameStateService.isGameRunning()) {
             runEngine();
         }
     }
 
-    public void pauseEngine() {
-        isGameRunning = false;
-    }
-
     private void runEngine() {
         logger.info("Running engine");
-        while (isGameRunning) {
+        while (gameStateService.isGameRunning()) {
             cycleNumber++;
             logger.info(String.format("\n\n cycle number %d\n\n", cycleNumber));
             logger.info(String.format("\n\nExecuting asset generation in cycle number %d\n\n", cycleNumber));

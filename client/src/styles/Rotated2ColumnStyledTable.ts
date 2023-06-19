@@ -2,35 +2,42 @@ import styled from 'styled-components';
 
 const Rotated2ColumnStyledTable = styled.div`
   table {
-    width: 100%;
     border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
 
-  table thead th {
-    background-color: ${({ theme }) => theme.colors.secondary};
-    color: ${({ theme }) => theme.colors.quaternary};
-    font-weight: bold;
-    padding: 8px;
+  thead tr {
+    background-color: #009879;
+    color: #ffffff;
     text-align: left;
+    font-weight: bold;
   }
 
-  table tbody td {
-    padding: 8px;
+  th,
+  td {
+    padding: 12px 15px;
   }
 
-  table tbody tr:nth-child(even) {
-    background-color: ${({ theme }) => theme.colors.secondary};
-    color: ${({ theme }) => theme.colors.quaternary};
+  tbody tr {
+    border-bottom: 1px solid #dddddd;
   }
 
-  table tbody td:first-child,
-  table thead th:first-child {
-    padding-left: 12px;
+  tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
   }
 
-  table tbody td:last-child,
-  table thead th:last-child {
-    padding-right: 12px;
+  tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+
+  tbody tr:hover {
+    font-weight: bold;
+    color: #009879;
   }
 `;
 

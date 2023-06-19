@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Asset from '../../interfaces/entities/Asset';
 import Person from '../../interfaces/entities/Person';
 import Rotated2ColumnStyledTable from '../../styles/Rotated2ColumnStyledTable';
+import AssetTable from './tables/AssetTable';
+import PersonDetailTable from './tables/PersonDetailTable';
 import StyledTable from '../../styles/StyledTable';
-import Table from '../utility/Table';
 
 interface PersonDetailModalProps {
   selectedPersonForModal: Person | null;
@@ -39,8 +40,6 @@ const PersonDetailModal = ({
       );
       if (data) {
         setAssets(data);
-        console.log("person detail modal")
-        console.log(data);
       }
     };
 
@@ -53,40 +52,17 @@ const PersonDetailModal = ({
     return <div>null person</div>;
   }
 
-  const RotatedTwoColumnTable = ({
-    headers,
-    rowData,
-  }: {
-    headers: string[];
-    rowData: string[];
-  }) => {
-    return (
-      <Rotated2ColumnStyledTable>
-        <table>
-          <tbody>
-            {headers.map((header, index) => (
-              <tr key={index}>
-                <td>{header}</td>
-                <td>{rowData[index]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Rotated2ColumnStyledTable>
-    );
-  };
-
-  const headers = ['ID', 'First name', 'Last name', 'Salary'];
-  const rowData = Object.values(selectedPersonForModal);
-
   return (
     <>
       {selectedPersonForModal ? (
         <div>
           <h2>Person Details</h2>
-          {/* <RotatedTwoColumnTable headers={headers} rowData={rowData} /> */}
           <StyledTable>
-            <Table data={assets} />
+            <PersonDetailTable person={selectedPersonForModal} />
+          </StyledTable>
+          <h2>Assets</h2>
+          <StyledTable>
+            <AssetTable assets={assets} />
           </StyledTable>
         </div>
       ) : null}

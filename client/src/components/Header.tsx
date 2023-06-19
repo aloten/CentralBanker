@@ -7,7 +7,8 @@ export const StyledHeader = styled.header`
   justify-content: space-around;
   align-items: center;
   height: 4rem;
-  background-color: ${({ theme }) => theme.colors.tertiary };
+  background-color: ${({ theme }) => theme.colors.tertiary};
+  color: white;
 `;
 
 const Header = () => {

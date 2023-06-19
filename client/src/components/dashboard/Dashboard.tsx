@@ -6,11 +6,23 @@ import ReactModal from 'react-modal';
 import { useState } from 'react';
 import PersonDetailModal from './PersonDetailModal';
 import Person from '../../interfaces/entities/Person';
+import Button from '../../styles/Button';
 
 const StyledDashboard = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  .dashboardItem {
+    /* min-width: 100px; */
+    flex-grow: 1;
+    max-width: 400px;
+  }
+  .summaryStatistics {
+    max-width: 200px;
+  }
+  .personIndex {
+    flex-grow: 2;
+  }
 `;
 
 const Dashboard = () => {
@@ -38,7 +50,7 @@ const Dashboard = () => {
         style={PersonReactModalStyle}
       >
         <PersonDetailModal selectedPersonForModal={selectedPersonForModal} />
-        <button onClick={closePersonModal}>Close</button>
+        <Button className='button' onClick={closePersonModal}>Close</Button>
       </ReactModal>
       <SummaryStatistics />
       <PersonIndex

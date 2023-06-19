@@ -5,8 +5,9 @@ import StyledTable from '../../styles/StyledTable';
 import Table from '../utility/Table';
 import TruncatedPerson from '../../interfaces/TruncatedPerson';
 import Person from '../../interfaces/entities/Person';
+import StyledTable2 from '../../styles/StyledTable';
 
-const StyledPersonIndex = styled(StyledTable)``;
+const StyledPersonIndex = styled(StyledTable2)``;
 
 interface PersonIndexProps {
   setIsPersonModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -70,7 +71,7 @@ const PersonIndex = ({
   }
 
   return (
-    <StyledPersonIndex className='personIndex'>
+    <StyledPersonIndex className='dashboardItem personIndex'>
       <h3>People</h3>
       {people ? (
         <Table<TruncatedPerson>
