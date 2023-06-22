@@ -22,7 +22,7 @@ interface Economy {
 const fetchEconomyData = async (): Promise<Economy | null> => {
   try {
     const response = await axios.get('/economy');
-    console.log(response);
+    // console.log(response);
     return response.data;
   } catch (error) {
     console.log('Error fetching economy data: ', error);

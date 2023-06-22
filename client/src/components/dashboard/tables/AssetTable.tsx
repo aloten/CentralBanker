@@ -4,10 +4,10 @@ const AssetTable = ({ assets }: { assets: Asset[] }) => {
   const headers = ['id', 'asset type name', 'quantity'];
   const row = (asset: Asset) => {
     return (
-      <tr>
-        <td>{asset.id}</td>
-        <td>{asset.assetType.name}</td>
-        <td>{asset.quantity}</td>
+      <tr key={asset.id}>
+        <td key='id'>{asset.id}</td>
+        <td key='assetTypeName'>{asset.assetType.name}</td>
+        <td key='quantity'>{asset.quantity}</td>
       </tr>
     );
   };

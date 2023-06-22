@@ -1,3 +1,4 @@
+import ControlPanel from "./ControlPanel";
 import Dashboard from "./dashboard/Dashboard";
 import styled from "styled-components";
 
@@ -14,6 +15,7 @@ return (
   <StyledHome className="home">
     Home
     <Dashboard />   
+    <ControlPanel />
   </StyledHome>
 )
 }

@@ -12,24 +12,24 @@ public class GameStateService {
         this.gameStateRepository = gameStateRepository;
     }
 
-    /** flip the isGameRunning flag */
-    public void pauseResume() {
+    public void play() {
         GameState gameState = getGameState();
-        gameState.setGameRunning(!gameState.isGameRunning());
-    }
-
-    public boolean isGameRunning() {
-        return getGameState().isGameRunning();
-    }
-
-    public void setGameRunningFalse() {
-        GameState gameState = getGameState();
-        gameState.setGameRunning(false);
+        gameState.setGamePaused(false);
         gameStateRepository.save(gameState);
     }
 
+    public void pause() {
+        GameState gameState = getGameState();
+        gameState.setGamePaused(true);
+        gameStateRepository.save(gameState);
+    }
+
+    public boolean isGamePaused() {
+        return getGameState().isGamePaused();
+    }
+
     public void createNewRunningGameState() {
-        gameStateRepository.save(GameState.builder().isGameRunning(true).build());
+        gameStateRepository.save(new GameState());
     }
 
     public GameState getGameState() {

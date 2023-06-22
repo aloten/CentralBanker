@@ -48,9 +48,12 @@ const Dashboard = () => {
         onRequestClose={closePersonModal}
         contentLabel='Person Detail Modal'
         style={PersonReactModalStyle}
+        ariaHideApp={false}
       >
         <PersonDetailModal selectedPersonForModal={selectedPersonForModal} />
-        <Button className='button' onClick={closePersonModal}>Close</Button>
+        <Button className='button' onClick={closePersonModal}>
+          Close
+        </Button>
       </ReactModal>
       <SummaryStatistics />
       <PersonIndex

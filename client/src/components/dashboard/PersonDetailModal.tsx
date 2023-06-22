@@ -14,6 +14,14 @@ interface PersonDetailModalProps {
 
 const StyledMainAttributesTable = styled(Rotated2ColumnStyledTable)``;
 
+const setupAssetSseConnection = (balanceSheetId: number) => {
+  const endpoint = `sse/assets?balanceSheetId=${balanceSheetId}`;
+  const source = new EventSource(endpoint);
+  source.addEventListener('assets', (event) => {
+    console.log(event.data);
+  });
+};
+
 const fetchAssetData = async (
   balanceSheetId: number
 ): Promise<Asset[] | null> => {
@@ -34,6 +42,8 @@ const PersonDetailModal = ({
   const [assets, setAssets] = useState<Asset[]>([]);
 
   useEffect(() => {
+    setupAssetSseConnection(1);
+
     const fetchData = async (person: Person): Promise<void> => {
       const data: Asset[] | null = await fetchAssetData(
         person.financialState.balanceSheet.id

@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import StyledTable from '../../styles/StyledTable';
 import Table from '../utility/Table';
 import TruncatedPerson from '../../interfaces/TruncatedPerson';
 import Person from '../../interfaces/entities/Person';
-import StyledTable2 from '../../styles/StyledTable';
+import StyledTable from '../../styles/StyledTable';
+import { usePeople } from '../../globalState/personStore';
 
-const StyledPersonIndex = styled(StyledTable2)``;
+const StyledPersonIndex = styled(StyledTable)``;
 
 interface PersonIndexProps {
   setIsPersonModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,20 +30,22 @@ const PersonIndex = ({
   setIsPersonModalOpen,
   setSelectedPersonForModal,
 }: PersonIndexProps) => {
-  const [loading, setLoading] = useState(true);
-  const [people, setPeople] = useState<Person[]>([]);
+  // const [loading, setLoading] = useState(true);
+  const { people } = usePeople();
 
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      const data: Person[] | null = await fetchPeopleData();
-      if (data) {
-        setPeople(data);
-        setLoading(false);
-      }
-    };
+  // const [people, setPeople] = useState<Person[]>([]);
 
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async (): Promise<void> => {
+  //     const data: Person[] | null = await fetchPeopleData();
+  //     if (data) {
+  //       setPeople(data);
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   const handlePersonRowClick = (id: number) => {
     if (id === 0) {
@@ -66,9 +68,9 @@ const PersonIndex = ({
     })
   );
 
-  if (loading) {
-    return <p>Loading, probably error...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading, probably error with backend api requests...</p>;
+  // }
 
   return (
     <StyledPersonIndex className='dashboardItem personIndex'>

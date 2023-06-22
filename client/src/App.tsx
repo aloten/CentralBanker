@@ -1,16 +1,11 @@
-import Home from './components/Home';
 import Header from './components/Header';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
-
-const theme = {
-  colors: {
-    primary: '#222831',
-    secondary: '#393E46',
-    tertiary: '#009879',
-    quarnary: '#EEEEEE',
-  },
-};
+import theme from './Theme';
+import { PeopleProvider } from './globalState/personStore';
+import Home from './components/Home';
+import { AssetsProvider } from './globalState/assetStore';
+import { useEffect } from 'react';
 
 const StyledApp = styled.div`
   display: flex;
@@ -18,16 +13,35 @@ const StyledApp = styled.div`
   align-items: center;
   /* background-color: ${theme.colors.primary};
   color: white; */
-  height: 100%; 
+  height: 100%;
 `;
 
 function App() {
+  /**
+   * test sse 
+   * 
+   * 
+const eventSourceURL = 'http://localhost:8080/api/v1/sse';
+  useEffect(() => {
+    console.log("sse")
+    const source = new EventSource(eventSourceURL);
+    source.addEventListener("people", (event) => {
+      console.log(event.data)
+    })
+  }, []);
+   * 
+   */
+
   return (
     <ThemeProvider theme={theme}>
-      <StyledApp className='App'>
-        <Header />
-        <Home />
-      </StyledApp>
+      <PeopleProvider>
+        <AssetsProvider>
+          <StyledApp className='App'>
+            <Header />
+            <Home />
+          </StyledApp>
+        </AssetsProvider>
+      </PeopleProvider>
     </ThemeProvider>
   );
 }

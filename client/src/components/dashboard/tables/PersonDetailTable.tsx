@@ -1,15 +1,15 @@
-import Person from "../../../interfaces/entities/Person";
+import Person from '../../../interfaces/entities/Person';
 
 const PersonDetailTable = ({ person }: { person: Person }) => {
   const headers = ['id', 'first name', 'last name', 'job title', 'salary'];
   const row = (person: Person) => {
     return (
       <tr>
-        <td>{person.id}</td>
-        <td>{person.firstName}</td>
-        <td>{person.lastName}</td>
-        <td>{person.jobTitle}</td>
-        <td>{person.salary}</td>
+        <td key='id'>{person.id}</td>
+        <td key='firstName'>{person.firstName}</td>
+        <td key='lastName'>{person.lastName}</td>
+        <td key='job'>{person.jobTitle}</td>
+        <td key='salary'>{person.salary}</td>
       </tr>
     );
   };

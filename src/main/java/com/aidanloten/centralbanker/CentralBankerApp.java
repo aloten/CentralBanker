@@ -1,28 +1,17 @@
 package com.aidanloten.centralbanker;
 
-import com.aidanloten.centralbanker.controllers.EconomyController;
-import com.aidanloten.centralbanker.engine.GameCycleService;
-import com.aidanloten.centralbanker.service.GameStateService;
+import com.aidanloten.centralbanker.engine.Engine;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = "com.aidanloten.centralbanker")
 public class CentralBankerApp {
+    // Don't know why i need to make Engine a component to stop errors here exactly
     @Autowired
-    GameCycleService gameCycleService;
-    @Autowired
-    EconomyController economyControllerPersonTrading;
-    @Autowired
-    GameStateService gameStateService;
-
-    Logger logger = LoggerFactory.getLogger(CentralBankerApp.class);
-    private Thread engineThread = null;
-    private int cycleNumber = 0;
+    private Engine engine;
 
     public static void main(String[] args) {
         SpringApplication.run(CentralBankerApp.class, args);
@@ -30,66 +19,12 @@ public class CentralBankerApp {
 
     @PostConstruct
     private void startGameEngine() {
-        gameStateService.createNewRunningGameState();
-        logger.info("Initializing economy");
-        economyControllerPersonTrading.initializeSystem();
-        economyControllerPersonTrading.displayEconomyStats();
-
-        logger.info("Starting game engine");
-        // Start the game loop in a separate thread
-        engineThread = new Thread(this::runEngine);
-        engineThread.start();
+        engine.start();
     }
 
     @PreDestroy
     public void stopEngine() {
-        gameStateService.setGameRunningFalse();
-        if (engineThread != null) {
-            try {
-                engineThread.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                e.printStackTrace();
-            }
-        }
+        engine.stop();
     }
 
-    public void resumeEngine() {
-        if (gameStateService.isGameRunning()) {
-            runEngine();
-        }
-    }
-
-    private void runEngine() {
-        logger.info("Running engine");
-        while (gameStateService.isGameRunning()) {
-            cycleNumber++;
-            logger.info(String.format("\n\n cycle number %d\n\n", cycleNumber));
-            logger.info(String.format("\n\nExecuting asset generation in cycle number %d\n\n", cycleNumber));
-            gameCycleService.executeAssetGeneration();
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                e.printStackTrace();
-            }
-            logger.info(String.format("\n\nExecuting market trading in cycle number %d\n\n", cycleNumber));
-            gameCycleService.executeMarketTrading();
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                e.printStackTrace();
-            }
-            logger.info(String.format("\n\nExecuting asset consumption in cycle number %d\n\n", cycleNumber));
-            gameCycleService.executeAssetConsumption();
-            // Delay the loop for a certain period of time before the next cycle
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                e.printStackTrace();
-            }
-        }
-    }
 }

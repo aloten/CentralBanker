@@ -14,5 +14,5 @@ public class GameState {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private boolean isGameRunning = false;
+    private boolean isGamePaused = false;
 }

@@ -14,8 +14,13 @@ public class EngineController {
         this.gameStateService = gameStateService;
     }
 
-    @PostMapping
-    public void pauseResume() {
-        gameStateService.pauseResume();
+    @PostMapping("/pause")
+    public void pause() {
+        gameStateService.pause();
+    }
+
+    @PostMapping("/play")
+    public void play() {
+       gameStateService.play();
     }
 }
