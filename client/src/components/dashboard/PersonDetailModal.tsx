@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Asset from '../../interfaces/entities/Asset';
@@ -7,6 +6,7 @@ import Rotated2ColumnStyledTable from '../../styles/Rotated2ColumnStyledTable';
 import AssetTable from './tables/AssetTable';
 import PersonDetailTable from './tables/PersonDetailTable';
 import StyledTable from '../../styles/StyledTable';
+import { API_PROXY } from '../../backendInfo';
 
 interface PersonDetailModalProps {
   selectedPersonForModal: Person | null;
@@ -14,48 +14,36 @@ interface PersonDetailModalProps {
 
 const StyledMainAttributesTable = styled(Rotated2ColumnStyledTable)``;
 
-const setupAssetSseConnection = (balanceSheetId: number) => {
-  const endpoint = `sse/assets?balanceSheetId=${balanceSheetId}`;
-  const source = new EventSource(endpoint);
-  source.addEventListener('assets', (event) => {
-    console.log(event.data);
-  });
-};
-
-const fetchAssetData = async (
-  balanceSheetId: number
-): Promise<Asset[] | null> => {
-  try {
-    const response = await axios.get(
-      `/person/assets?balanceSheetId=${balanceSheetId}`
-    );
-    return response.data;
-  } catch (error) {
-    console.log('Error fetching people data: ', error);
-    return null;
-  }
-};
-
 const PersonDetailModal = ({
   selectedPersonForModal,
 }: PersonDetailModalProps) => {
   const [assets, setAssets] = useState<Asset[]>([]);
 
+  const createAssetSseConnection = (balanceSheetId: number): EventSource => {
+    console.log('create Sse connection assets');
+    const endpoint = `${API_PROXY}/sse/assets?balanceSheetId=${balanceSheetId}`;
+    const eventSource = new EventSource(endpoint);
+    eventSource.addEventListener('ASSETS', (event) => {
+      setAssets(JSON.parse(event.data));
+      // console.log(JSON.parse(event.data));
+    });
+    return eventSource;
+  };
+
   useEffect(() => {
-    setupAssetSseConnection(1);
-
-    const fetchData = async (person: Person): Promise<void> => {
-      const data: Asset[] | null = await fetchAssetData(
-        person.financialState.balanceSheet.id
-      );
-      if (data) {
-        setAssets(data);
-      }
-    };
-
+    let eventSource: EventSource;
     if (selectedPersonForModal) {
-      fetchData(selectedPersonForModal);
+      eventSource = createAssetSseConnection(
+        selectedPersonForModal.financialState.balanceSheet.id
+      );
     }
+
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+      console.log('personDetailModal useEffect() unmounting return function');
+    };
   }, [selectedPersonForModal]);
 
   if (selectedPersonForModal === null) {

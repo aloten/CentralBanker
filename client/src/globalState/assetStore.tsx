@@ -4,12 +4,7 @@ import Asset from '../interfaces/entities/Asset';
 function useAssetSource(): { assets: Asset[] } {
   const [assets, setAssets] = useState<Asset[]>([]);
 
-  useEffect(() => {
-    // incorrect route, needs balancesheet id
-    fetch('/person/assets')
-      .then((response) => response.json())
-      .then((data) => setAssets(data));
-  }, []);
+  useEffect(() => {}, []);
 
   return { assets };
 }

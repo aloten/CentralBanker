@@ -1,6 +1,5 @@
 package com.aidanloten.centralbanker.controllers;
 
-import com.aidanloten.centralbanker.data.entities.agents.Person;
 import com.aidanloten.centralbanker.service.AssetService;
 import com.aidanloten.centralbanker.service.EventName;
 import com.aidanloten.centralbanker.service.SseEvent;
@@ -8,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
@@ -32,10 +28,12 @@ public class SseController {
         this.assetService = assetService;
     }
 
+    @CrossOrigin
     @GetMapping(path = "/assets", consumes = MediaType.ALL_VALUE)
     SseEmitter createConnection(@RequestParam("balanceSheetId") String balanceSheetId) {
         this.balanceSheetId = parseInt(balanceSheetId);
         assetsEmitter = new SseEmitter(Long.MAX_VALUE);
+        logger.info("Sse connection created for balanceSheetId: " + balanceSheetId);
 
         assetsEmitter.onCompletion(() -> {
             logger.info("SSE connection completed for balanceSheetId: " + balanceSheetId);
@@ -60,7 +58,8 @@ public class SseController {
     private void handleAssetsSseEvent(SseEvent event) throws IOException {
         if (assetsEmitter != null) {
             assetsEmitter.send(SseEmitter.event().name(event.getEventName())
-                    .data(Person.builder().firstName("test asset sse object").build()));
+                    .data(assetService.findAssetsByBalanceSheetId(balanceSheetId)));
+            logger.info("sse sent: assets");
         }
     }
 

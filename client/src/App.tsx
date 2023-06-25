@@ -17,20 +17,6 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  /**
-   * test sse 
-   * 
-   * 
-const eventSourceURL = 'http://localhost:8080/api/v1/sse';
-  useEffect(() => {
-    console.log("sse")
-    const source = new EventSource(eventSourceURL);
-    source.addEventListener("people", (event) => {
-      console.log(event.data)
-    })
-  }, []);
-   * 
-   */
 
   return (
     <ThemeProvider theme={theme}>
