@@ -13,13 +13,15 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Personality")
+/**
+ * skill levels: from 1 to 10 (most skilled = 10)
+ * */
 public class Personality implements EntityModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int industrySkillLevel; // most = 10, least = 1, e.g. (most skilled = 10)
-    private int communicationLevel;
-    private int industriousLevel;
-    private int abilityToLearnLevel;
+//    private int industrySkill;
+    private int hardworking;
+    private int innovative;
 }

@@ -45,5 +45,7 @@ public class Person implements Agent {
     private List<Modifier> consumptionModifiers;
     @Transient
     private ConsumptionRequirements consumptionRequirements;
+    @OneToOne
+    private Modifier productionModifier;
 
 }

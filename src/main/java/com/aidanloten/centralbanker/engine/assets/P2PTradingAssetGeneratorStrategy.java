@@ -30,25 +30,28 @@ public class P2PTradingAssetGeneratorStrategy implements AssetGeneratorStrategy 
     @Transactional
     public void generateAssetsForCycle() {
         try {
-        for (Person person : personService.findAllPeople()) {
-            AssetType assetType = person.getAssetTypeProduces();
-            int quantity = 0;
-            if (assetType == assetService.getLumberAssetType()) {
-                quantity = ProductionConstants.BASE_LUMBER_PRODUCTION;
-            } else if (assetType == assetService.getToolAssetType()) {
-                quantity = ProductionConstants.BASE_TOOL_PRODUCTION;
-            } else if (assetType == assetService.getFoodAssetType()) {
-                quantity = ProductionConstants.BASE_FOOD_PRODUCTION;
+            for (Person person : personService.findAllPeople()) {
+                AssetType assetType = person.getAssetTypeProduces();
+                int quantity = 0;
+                if (assetType == assetService.getLumberAssetType()) {
+                    quantity = ProductionConstants.BASE_LUMBER_PRODUCTION;
+                } else if (assetType == assetService.getToolAssetType()) {
+                    quantity = ProductionConstants.BASE_TOOL_PRODUCTION;
+                } else if (assetType == assetService.getFoodAssetType()) {
+                    quantity = ProductionConstants.BASE_FOOD_PRODUCTION;
+                }
+                generateAssetForPerson(person, assetType, quantity);
             }
-            generateAssetForPerson(person, assetType, quantity);
-        }} catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Error generating assets in cycle");
             e.printStackTrace();
         }
     }
 
-    private void generateAssetForPerson(Person person, AssetType assetType, int quantity) {
-            Asset asset = assetService.findAssetByAssetType(person, assetType);
+    private void generateAssetForPerson(Person person, AssetType assetType, int baseQuantity) {
+        Asset asset = assetService.findAssetByAssetType(person, assetType);
+        double productionModifierValue = person.getProductionModifier().getEffectPercentage();
+        int quantity = (int) (baseQuantity * productionModifierValue / 100);
         if (asset == null) {
             asset = Asset.builder().assetType(assetType).quantity(quantity).build();
             financialStateService.assignAssetToAgent(asset, person);

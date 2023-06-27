@@ -59,9 +59,9 @@ public class ReadCsvUtility {
             int communicationLevel = parseInt(values[1]);
             int industriousLevel = parseInt(values[2]);
             int abilityToLearnLevel = parseInt(values[3]);
-            personService.savePersonality(
-                    Personality.builder().industrySkillLevel(industrySkillLevel).communicationLevel(communicationLevel)
-                            .industriousLevel(industriousLevel).abilityToLearnLevel(abilityToLearnLevel).build());
+//            personService.savePersonality(
+//                    Personality.builder().industrySkillLevel(industrySkillLevel).communicationLevel(communicationLevel)
+//                            .industriousLevel(industriousLevel).abilityToLearnLevel(abilityToLearnLevel).build());
         }
     }
 

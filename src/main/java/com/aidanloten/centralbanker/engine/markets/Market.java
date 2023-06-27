@@ -4,12 +4,11 @@ import com.aidanloten.centralbanker.data.entities.agents.Person;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.assets.Asset;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.assets.AssetType;
 import com.aidanloten.centralbanker.engine.consumption.ConsumptionRequirement;
-import com.aidanloten.centralbanker.engine.consumption.ConsumptionService;
 import com.aidanloten.centralbanker.engine.consumption.ConsumptionRequirements;
+import com.aidanloten.centralbanker.engine.consumption.ConsumptionService;
 import com.aidanloten.centralbanker.engine.transactions.TradeTransaction;
 import com.aidanloten.centralbanker.engine.transactions.TransactionService;
 import com.aidanloten.centralbanker.service.AssetService;
-import com.aidanloten.centralbanker.service.FinancialStateService;
 import com.aidanloten.centralbanker.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +21,6 @@ import java.util.Queue;
 @Component
 public class Market {
     private final Queue<Person> participants;
-    @Autowired
-    FinancialStateService financialStateService;
     @Autowired
     TransactionService transactionService;
     @Autowired
@@ -62,29 +59,20 @@ public class Market {
      * "Price" right now is 1:1 for every good based on constants
      */
     private void executeTrade(Person buyer, Person seller, ConsumptionRequirement consumptionRequirement) {
-        Asset assetBuyerProduces = financialStateService.getAssetPersonProduces(buyer);
-        int quantityBuyerAsset = 0;
-        if (assetBuyerProduces != null) {
-            quantityBuyerAsset = assetBuyerProduces.getQuantity();
-        }
-        Asset assetSellerProduces = financialStateService.getAssetPersonProduces(seller);
-        int quantitySellerAsset = 0;
-        if (assetSellerProduces != null) {
-            quantitySellerAsset = assetSellerProduces.getQuantity();
-        }
+        Asset assetBuyerProduces = assetService.getAssetPersonProduces(buyer);
+        int quantityBuyerAsset = assetService.getQuantityOfAssetPersonProduces(buyer);
+
+        Asset assetSellerProduces = assetService.getAssetPersonProduces(seller);
+        int quantitySellerAsset = assetService.getQuantityOfAssetPersonProduces(seller);
+
         // fixed price, every good is 1:1 ratio for trading, maybe this will pull from a price map later
         double priceRatioOfBuyerAssetToSellerAsset = 1;
-        double maxQuantityOfSellerAssetThatBuyerCanAfford = quantityBuyerAsset * priceRatioOfBuyerAssetToSellerAsset;
-        int quantitySellerAssetToTrade = 0;
-        int quantityBuyerAssetToTrade = 0;
-        if (maxQuantityOfSellerAssetThatBuyerCanAfford > quantitySellerAsset) {
-            quantitySellerAssetToTrade = quantitySellerAsset;
-            quantityBuyerAssetToTrade = (int) Math.floor(
-                    quantitySellerAssetToTrade / priceRatioOfBuyerAssetToSellerAsset);
-        } else {
-            quantityBuyerAssetToTrade = consumptionRequirement.getQuantity();
-            quantitySellerAssetToTrade = consumptionRequirement.getQuantity();
-        }
+        // The minimum of quantity seller has, quantity buyer can afford, and quantity buyer wants
+        int quantitySellerAssetToTrade = (int) (Math.min(
+                Math.min(quantitySellerAsset, quantityBuyerAsset * priceRatioOfBuyerAssetToSellerAsset),
+                consumptionRequirement.getQuantity()));
+
+        int quantityBuyerAssetToTrade = (int) (quantitySellerAssetToTrade * (1 / priceRatioOfBuyerAssetToSellerAsset));
 
         TradeTransaction tradeTransaction = new TradeTransaction(buyer, assetBuyerProduces, quantityBuyerAssetToTrade,
                 seller, assetSellerProduces, quantitySellerAssetToTrade);

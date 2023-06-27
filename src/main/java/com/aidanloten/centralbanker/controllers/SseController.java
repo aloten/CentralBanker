@@ -35,6 +35,7 @@ public class SseController {
         assetsEmitter = new SseEmitter(Long.MAX_VALUE);
         logger.info("Sse connection created for balanceSheetId: " + balanceSheetId);
 
+
         assetsEmitter.onCompletion(() -> {
             logger.info("SSE connection completed for balanceSheetId: " + balanceSheetId);
             this.balanceSheetId = 0;
@@ -49,6 +50,8 @@ public class SseController {
 
         try {
             assetsEmitter.send(SseEmitter.event().name("INIT assets sse connection"));
+            assetsEmitter.send(SseEmitter.event().name(EventName.ASSETS.name())
+                    .data(assetService.findAssetsByBalanceSheetId(this.balanceSheetId)));
         } catch (IOException e) {
             e.printStackTrace();
         }

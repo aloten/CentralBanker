@@ -13,12 +13,30 @@ import java.util.List;
 
 @Service
 public class AssetService {
-    AssetRepository assetRepository;
-    AssetTypeRepository assetTypeRepository;
+    private final AssetRepository assetRepository;
+    private final AssetTypeRepository assetTypeRepository;
 
     public AssetService(AssetRepository assetRepository, AssetTypeRepository assetTypeRepository) {
         this.assetRepository = assetRepository;
         this.assetTypeRepository = assetTypeRepository;
+    }
+
+    public Asset getAssetPersonProduces(Person person) {
+        for (Asset asset : findAssetsFromPerson(person)) {
+            if (isEqual(asset.getAssetType(), person.getAssetTypeProduces())) {
+                return asset;
+            }
+        }
+        return null;
+    }
+
+    public int getQuantityOfAssetPersonProduces(Person buyer) {
+        Asset assetPersonProduces = getAssetPersonProduces(buyer);
+        int quantity = 0;
+        if (assetPersonProduces != null) {
+            quantity = assetPersonProduces.getQuantity();
+        }
+        return quantity;
     }
 
     public void deleteAsset(Asset asset) {

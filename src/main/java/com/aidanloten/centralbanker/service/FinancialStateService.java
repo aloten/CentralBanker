@@ -46,15 +46,6 @@ public class FinancialStateService {
         return financialStateRepository.save(financialState);
     }
 
-    public Asset getAssetPersonProduces(Person person) {
-        for (Asset asset : assetService.findAssetsFromPerson(person)) {
-            if (assetService.isEqual(asset.getAssetType(), person.getAssetTypeProduces())) {
-                return asset;
-            }
-        }
-        return null;
-    }
-
     public Asset getAssetByAgentAndName(Agent agent, String assetName) {
         for (Asset asset : assetService.findAssetsFromBalanceSheet(agent.getFinancialState().getBalanceSheet())) {
             if (asset.getName().equals(assetName)) {

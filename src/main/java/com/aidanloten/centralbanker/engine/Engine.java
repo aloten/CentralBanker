@@ -63,7 +63,7 @@ public class Engine {
             gameCycleService.executeAssetGeneration();
             syncAssets();
 
-            sleepSeconds(2);
+//            sleepSeconds(2);
 
             // Market Trading
             sleepIfGameIsPaused();
@@ -71,7 +71,7 @@ public class Engine {
             gameCycleService.executeMarketTrading();
             syncAssets();
 
-            sleepSeconds(2);
+//            sleepSeconds(2);
 
             // Asset Consumption
             sleepIfGameIsPaused();
@@ -80,7 +80,7 @@ public class Engine {
             syncAssets();
 
             // Delay the loop for a certain period of time before the next cycle
-            sleepSeconds(2);
+//            sleepSeconds(2);
         }
     }
 

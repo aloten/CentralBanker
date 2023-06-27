@@ -3,7 +3,6 @@ package com.aidanloten.centralbanker.data.entities.descriptors.economy;
 import com.aidanloten.centralbanker.data.entities.EntityModel;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Getter
@@ -18,5 +17,6 @@ public class Modifier implements EntityModel {
     private int id;
     private String name;
     private String description;
-    private double effectPercentage;
+    @Builder.Default
+    private double effectPercentage = 100;
 }
