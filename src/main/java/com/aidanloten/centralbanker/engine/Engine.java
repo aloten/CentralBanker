@@ -1,11 +1,16 @@
 package com.aidanloten.centralbanker.engine;
 
 import com.aidanloten.centralbanker.controllers.EconomyController;
+import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.assets.Asset;
+import com.aidanloten.centralbanker.service.AssetService;
 import com.aidanloten.centralbanker.service.GameStateService;
 import com.aidanloten.centralbanker.service.SseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class Engine {
@@ -13,17 +18,19 @@ public class Engine {
     private final EconomyController economyControllerPersonTrading;
     private final GameStateService gameStateService;
     private final SseService sseService;
+    private final AssetService assetService;
 
     Logger logger = LoggerFactory.getLogger(Engine.class);
     private Thread engineThread = null;
     private int cycleNumber = 0;
 
     public Engine(GameCycleService gameCycleService, EconomyController economyControllerPersonTrading,
-                  GameStateService gameStateService, SseService sseService) {
+                  GameStateService gameStateService, SseService sseService, AssetService assetService) {
         this.gameCycleService = gameCycleService;
         this.economyControllerPersonTrading = economyControllerPersonTrading;
         this.gameStateService = gameStateService;
         this.sseService = sseService;
+        this.assetService = assetService;
     }
 
     public void start() {
@@ -61,7 +68,7 @@ public class Engine {
             sleepIfGameIsPaused();
             logger.info(String.format("\n\nExecuting asset generation in cycle number %d\n\n", cycleNumber));
             gameCycleService.executeAssetGeneration();
-            syncAssets();
+            syncDataToClient();
 
 //            sleepSeconds(2);
 
@@ -69,7 +76,7 @@ public class Engine {
             sleepIfGameIsPaused();
             logger.info(String.format("\n\nExecuting market trading in cycle number %d\n\n", cycleNumber));
             gameCycleService.executeMarketTrading();
-            syncAssets();
+            syncDataToClient();
 
 //            sleepSeconds(2);
 
@@ -77,7 +84,7 @@ public class Engine {
             sleepIfGameIsPaused();
             logger.info(String.format("\n\nExecuting asset consumption in cycle number %d\n\n", cycleNumber));
             gameCycleService.executeAssetConsumption();
-            syncAssets();
+            syncDataToClient();
 
             // Delay the loop for a certain period of time before the next cycle
 //            sleepSeconds(2);
@@ -98,6 +105,22 @@ public class Engine {
             Thread.currentThread().interrupt();
             e.printStackTrace();
         }
+    }
+
+    private void syncDataToClient() {
+        // using SSE, replacing with WS
+        syncAssets();
+
+        // WS
+        if (gameStateService.getShouldStreamPersonAssets()) {
+            syncPersonAssets();
+        }
+    }
+
+    @SendTo("/topic/personAssets")
+    private List<Asset> syncPersonAssets() {
+        int balanceSheetId = gameStateService.getGameState().getBalanceSheetIdOfPersonInModal();
+        return assetService.findAssetsByBalanceSheetId(balanceSheetId);
     }
 
     private void syncAssets() {

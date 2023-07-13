@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import Asset from '../../interfaces/entities/Asset';
 import Person from '../../interfaces/entities/Person';
@@ -7,6 +7,7 @@ import AssetTable from './tables/AssetTable';
 import PersonDetailTable from './tables/PersonDetailTable';
 import StyledTable from '../../styles/StyledTable';
 import { API_PROXY } from '../../backendInfo';
+import { WebSocketContext } from '../../globalState/WebSocketContext';
 
 interface PersonDetailModalProps {
   selectedPersonForModal: Person | null;
@@ -17,6 +18,12 @@ const StyledMainAttributesTable = styled(Rotated2ColumnStyledTable)``;
 const PersonDetailModal = ({
   selectedPersonForModal,
 }: PersonDetailModalProps) => {
+  const { personAssets } = useContext(WebSocketContext);
+  
+  useEffect(() => {
+    console.log(personAssets);
+  }, [personAssets]);
+
   const [assets, setAssets] = useState<Asset[]>([]);
 
   const createAssetSseConnection = (balanceSheetId: number): EventSource => {

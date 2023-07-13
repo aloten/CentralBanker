@@ -23,7 +23,7 @@ public class Asset implements EntityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(columnDefinition = "int default 1")
+    @Builder.Default
     private int quantity = 1;
 
 }
