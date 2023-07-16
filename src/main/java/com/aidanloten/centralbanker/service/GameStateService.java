@@ -14,18 +14,24 @@ public class GameStateService {
         this.gameStateRepository = gameStateRepository;
     }
 
+    public void setBalanceSheetIdOfPersonInModal(int balanceSheetId) {
+        GameState gameState = getGameState();
+        gameState.setBalanceSheetIdOfPersonInModal(balanceSheetId);
+        saveGameState(gameState);
+    }
+
     public void saveGameState(GameState gameState) {
         gameStateRepository.save(gameState);
+    }
+
+    public boolean getShouldStreamPersonAssets() {
+        return getGameState().isShouldStreamPersonAssets();
     }
 
     public void setShouldStreamPersonAssets(boolean shouldStreamPersonAssets) {
         GameState gameState = getGameState();
         gameState.setShouldStreamPersonAssets(shouldStreamPersonAssets);
         gameStateRepository.save(gameState);
-    }
-
-    public boolean getShouldStreamPersonAssets() {
-        return getGameState().isShouldStreamPersonAssets();
     }
 
     public LocalDate getDate() {

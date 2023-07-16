@@ -3,7 +3,7 @@ import PersonIndex from './PersonIndex';
 import SummaryStatistics from './SummaryStatistics';
 import styled from 'styled-components';
 import ReactModal from 'react-modal';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import PersonDetailModal from './PersonDetailModal';
 import Person from '../../interfaces/entities/Person';
 import Button from '../../styles/Button';
@@ -45,16 +45,19 @@ const Dashboard = () => {
     setIsPersonModalOpen(false);
   };
 
+  console.log('dashboard remounting');
   // logic for requesting websocket data for person modal
-  if (isPersonModalOpen && selectedPersonForModal) {
-    console.log('should start streaming person assets');
-    startStreamingPersonAssets(
-      selectedPersonForModal.financialState.balanceSheet.id
-    );
-  } else {
-    console.log('should stop streaming person assets');
-    stopStreamingPersonAssets();
-  }
+  useEffect(() => {
+    if (isPersonModalOpen && selectedPersonForModal) {
+      console.log('should start streaming person assets');
+      startStreamingPersonAssets(
+        selectedPersonForModal.financialState.balanceSheet.id
+      );
+    } else {
+      console.log('should stop streaming person assets');
+      stopStreamingPersonAssets();
+    }
+  }, [isPersonModalOpen, selectedPersonForModal]);
 
   return (
     <StyledDashboard className='dashboard'>

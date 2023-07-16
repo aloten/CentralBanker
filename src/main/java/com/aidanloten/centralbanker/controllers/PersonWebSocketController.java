@@ -33,6 +33,7 @@ public class PersonWebSocketController {
     @SendTo("/topic/personAssets")
     public List<Asset> startStreamingPersonAssets(@DestinationVariable int balanceSheetId) {
         gameStateService.setShouldStreamPersonAssets(true);
+        gameStateService.setBalanceSheetIdOfPersonInModal(balanceSheetId);
         return assetService.findAssetsByBalanceSheetId(balanceSheetId);
     }
 }

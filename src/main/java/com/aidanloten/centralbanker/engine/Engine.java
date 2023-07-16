@@ -7,7 +7,7 @@ import com.aidanloten.centralbanker.service.GameStateService;
 import com.aidanloten.centralbanker.service.SseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,18 +19,21 @@ public class Engine {
     private final GameStateService gameStateService;
     private final SseService sseService;
     private final AssetService assetService;
+    private final SimpMessagingTemplate messagingTemplate;
 
     Logger logger = LoggerFactory.getLogger(Engine.class);
     private Thread engineThread = null;
     private int cycleNumber = 0;
 
     public Engine(GameCycleService gameCycleService, EconomyController economyControllerPersonTrading,
-                  GameStateService gameStateService, SseService sseService, AssetService assetService) {
+                  GameStateService gameStateService, SseService sseService, AssetService assetService,
+                  SimpMessagingTemplate messagingTemplate) {
         this.gameCycleService = gameCycleService;
         this.economyControllerPersonTrading = economyControllerPersonTrading;
         this.gameStateService = gameStateService;
         this.sseService = sseService;
         this.assetService = assetService;
+        this.messagingTemplate = messagingTemplate;
     }
 
     public void start() {
@@ -70,7 +73,7 @@ public class Engine {
             gameCycleService.executeAssetGeneration();
             syncDataToClient();
 
-//            sleepSeconds(2);
+            //            sleepSeconds(2);
 
             // Market Trading
             sleepIfGameIsPaused();
@@ -78,7 +81,7 @@ public class Engine {
             gameCycleService.executeMarketTrading();
             syncDataToClient();
 
-//            sleepSeconds(2);
+            //            sleepSeconds(2);
 
             // Asset Consumption
             sleepIfGameIsPaused();
@@ -87,7 +90,7 @@ public class Engine {
             syncDataToClient();
 
             // Delay the loop for a certain period of time before the next cycle
-//            sleepSeconds(2);
+            //            sleepSeconds(2);
         }
     }
 
@@ -111,14 +114,14 @@ public class Engine {
         // using SSE, replacing with WS
         syncAssets();
 
-        // WS
+        // Web socket (WS), sync person assets
         if (gameStateService.getShouldStreamPersonAssets()) {
-            syncPersonAssets();
+            List<Asset> personAssets = getPersonInModalAssets();
+            messagingTemplate.convertAndSend("/topic/personAssets", personAssets);
         }
     }
 
-    @SendTo("/topic/personAssets")
-    private List<Asset> syncPersonAssets() {
+    private List<Asset> getPersonInModalAssets() {
         int balanceSheetId = gameStateService.getGameState().getBalanceSheetIdOfPersonInModal();
         return assetService.findAssetsByBalanceSheetId(balanceSheetId);
     }
