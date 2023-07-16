@@ -72,10 +72,7 @@ const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const stopStreamingPersonAssets = useCallback(() => {
-    console.log('inside stopStreaming...');
-    console.log(client);
     if (client.connected) {
-      console.log('client is connected');
       client.publish({
         destination: '/app/personAssets/stop',
       });
@@ -83,7 +80,7 @@ const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   }, [client]);
 
   const handlePersonAssetsMessage = (message: IMessage) => {
-    console.log(`Received messaged from 'personAssets' topic: ${message.body}`);
+    // console.log(`Received messaged from 'personAssets' topic: ${message.body}`);
     setPersonAssets(JSON.parse(message.body));
   };
 
