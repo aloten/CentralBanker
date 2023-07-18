@@ -29,7 +29,7 @@ public class ConsumptionService {
     }
 
     public void consumePersonAssets(Person person) {
-        List<Asset> assets = assetService.findAssetsFromPerson(person);
+        List<Asset> assets = assetService.findAssetsOfPerson(person);
         // Might want to not dupe this (trading and consumption cycles) in the future by making persistent or another
         // solution
         Deque<ConsumptionRequirement> consumptionRequirements = calculateConsumptionRequirements();

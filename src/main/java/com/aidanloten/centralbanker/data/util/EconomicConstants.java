@@ -1,6 +1,8 @@
 package com.aidanloten.centralbanker.data.util;
 
 public class EconomicConstants {
+    public static double BIRTH_RATE = 0.04;
+
     public static double PERSON_SAVINGS_RATE = 0.2;
 
     public static double FRACTION_OF_SALARY_FOR_STARTING_CASH_VALUE = 0.1;

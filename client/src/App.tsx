@@ -5,7 +5,8 @@ import theme from './Theme';
 import { PeopleProvider } from './globalState/personStore';
 import Home from './components/Home';
 import { AssetsProvider } from './globalState/assetStore';
-import { useEffect } from 'react';
+import { IMessage } from '@stomp/stompjs';
+import { WebSocketProvider } from './globalState/WebSocketContext';
 
 const StyledApp = styled.div`
   display: flex;
@@ -20,14 +21,16 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <PeopleProvider>
-        <AssetsProvider>
-          <StyledApp className='App'>
-            <Header />
-            <Home />
-          </StyledApp>
-        </AssetsProvider>
-      </PeopleProvider>
+      <WebSocketProvider>
+        <PeopleProvider>
+          <AssetsProvider>
+            <StyledApp className='App'>
+              <Header />
+              <Home />
+            </StyledApp>
+          </AssetsProvider>
+        </PeopleProvider>
+      </WebSocketProvider>
     </ThemeProvider>
   );
 }

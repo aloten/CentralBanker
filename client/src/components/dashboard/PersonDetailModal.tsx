@@ -1,50 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
-import Asset from '../../interfaces/entities/Asset';
+import { WebSocketContext } from '../../globalState/WebSocketContext';
 import Person from '../../interfaces/entities/Person';
 import Rotated2ColumnStyledTable from '../../styles/Rotated2ColumnStyledTable';
+import StyledTable from '../../styles/StyledTable';
 import AssetTable from './tables/AssetTable';
 import PersonDetailTable from './tables/PersonDetailTable';
-import StyledTable from '../../styles/StyledTable';
-import { API_PROXY } from '../../backendInfo';
 
 interface PersonDetailModalProps {
   selectedPersonForModal: Person | null;
 }
 
+// maybe want to use this to style a 2 column table for main person details
 const StyledMainAttributesTable = styled(Rotated2ColumnStyledTable)``;
 
 const PersonDetailModal = ({
   selectedPersonForModal,
 }: PersonDetailModalProps) => {
-  const [assets, setAssets] = useState<Asset[]>([]);
-
-  const createAssetSseConnection = (balanceSheetId: number): EventSource => {
-    console.log('create Sse connection assets');
-    const endpoint = `${API_PROXY}/sse/assets?balanceSheetId=${balanceSheetId}`;
-    const eventSource = new EventSource(endpoint);
-    eventSource.addEventListener('ASSETS', (event) => {
-      setAssets(JSON.parse(event.data));
-      // console.log(JSON.parse(event.data));
-    });
-    return eventSource;
-  };
-
-  useEffect(() => {
-    let eventSource: EventSource;
-    if (selectedPersonForModal) {
-      eventSource = createAssetSseConnection(
-        selectedPersonForModal.financialState.balanceSheet.id
-      );
-    }
-
-    return () => {
-      if (eventSource) {
-        eventSource.close();
-      }
-      console.log('personDetailModal useEffect() unmounting return function');
-    };
-  }, [selectedPersonForModal]);
+  const { personAssets } = useContext(WebSocketContext);
 
   if (selectedPersonForModal === null) {
     return <div>null person</div>;
@@ -59,9 +32,11 @@ const PersonDetailModal = ({
             <PersonDetailTable person={selectedPersonForModal} />
           </StyledTable>
           <h2>Assets</h2>
-          <StyledTable>
-            <AssetTable assets={assets} />
-          </StyledTable>
+          {personAssets && (
+            <StyledTable>
+              <AssetTable assets={personAssets} />
+            </StyledTable>
+          )}
         </div>
       ) : null}
     </>

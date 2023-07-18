@@ -3,10 +3,11 @@ import PersonIndex from './PersonIndex';
 import SummaryStatistics from './SummaryStatistics';
 import styled from 'styled-components';
 import ReactModal from 'react-modal';
-import { useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import PersonDetailModal from './PersonDetailModal';
 import Person from '../../interfaces/entities/Person';
 import Button from '../../styles/Button';
+import { WebSocketContext } from '../../globalState/WebSocketContext';
 
 const StyledDashboard = styled.div`
   display: flex;
@@ -25,7 +26,17 @@ const StyledDashboard = styled.div`
   }
 `;
 
+const PersonReactModalStyle = {
+  content: {
+    width: '50%',
+    margin: 'auto',
+  },
+};
+
 const Dashboard = () => {
+  const { startStreamingPersonAssets, stopStreamingPersonAssets } =
+    useContext(WebSocketContext);
+
   const [isPersonModalOpen, setIsPersonModalOpen] = useState<boolean>(false);
   const [selectedPersonForModal, setSelectedPersonForModal] =
     useState<Person | null>(null);
@@ -34,12 +45,18 @@ const Dashboard = () => {
     setIsPersonModalOpen(false);
   };
 
-  const PersonReactModalStyle = {
-    content: {
-      width: '50%',
-      margin: 'auto',
-    },
-  };
+  // logic for requesting websocket data for person modal
+  useEffect(() => {
+    if (isPersonModalOpen && selectedPersonForModal) {
+      console.log('should start streaming person assets');
+      startStreamingPersonAssets(
+        selectedPersonForModal.financialState.balanceSheet.id
+      );
+    } else {
+      console.log('should stop streaming person assets');
+      stopStreamingPersonAssets();
+    }
+  }, [isPersonModalOpen, selectedPersonForModal]);
 
   return (
     <StyledDashboard className='dashboard'>

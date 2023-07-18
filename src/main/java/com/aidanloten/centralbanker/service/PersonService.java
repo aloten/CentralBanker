@@ -21,6 +21,10 @@ public class PersonService {
     @Autowired
     PersonalityRepository personalityRepository;
 
+    public int getNumberOfPeople() {
+        return (int) personRepository.count();
+    }
+
     public void savePersonality(Personality personality) {
         personalityRepository.save(personality);
     }

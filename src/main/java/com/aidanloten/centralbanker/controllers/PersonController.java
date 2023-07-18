@@ -4,11 +4,15 @@ import com.aidanloten.centralbanker.data.dto.PersonRequest;
 import com.aidanloten.centralbanker.data.entities.agents.Person;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.assets.Asset;
 import com.aidanloten.centralbanker.service.AssetService;
+import com.aidanloten.centralbanker.service.GameStateService;
 import com.aidanloten.centralbanker.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +24,26 @@ import static java.lang.Integer.parseInt;
 public class PersonController {
     private final PersonService personService;
     private final AssetService assetService;
+    private final GameStateService gameStateService;
     Logger logger = LoggerFactory.getLogger(PersonController.class);
 
-    public PersonController(PersonService personService, AssetService assetService) {
+    public PersonController(PersonService personService, AssetService assetService, GameStateService gameStateService) {
         this.personService = personService;
         this.assetService = assetService;
+        this.gameStateService = gameStateService;
+    }
+
+    @MessageMapping("/personAssets/stop")
+    public void stopStreamingPersonAssets() {
+        gameStateService.setShouldStreamPersonAssets(false);
+    }
+
+    @MessageMapping("/personAssets/{balanceSheetId}")
+    @SendTo("/topic/personAssets")
+    public List<Asset> startStreamingPersonAssets(@DestinationVariable int balanceSheetId) {
+        gameStateService.setShouldStreamPersonAssets(true);
+        gameStateService.setBalanceSheetIdOfPersonInModal(balanceSheetId);
+        return assetService.findAssetsByBalanceSheetId(balanceSheetId);
     }
 
     @GetMapping("/assets")

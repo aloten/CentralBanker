@@ -3,7 +3,6 @@ package com.aidanloten.centralbanker.service;
 import com.aidanloten.centralbanker.data.dao.balancesheet.BalanceSheetRepository;
 import com.aidanloten.centralbanker.data.dao.financialstate.FinancialStateRepository;
 import com.aidanloten.centralbanker.data.entities.agents.Agent;
-import com.aidanloten.centralbanker.data.entities.agents.Person;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.BalanceSheet;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.FinancialState;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.assets.Asset;
@@ -47,7 +46,7 @@ public class FinancialStateService {
     }
 
     public Asset getAssetByAgentAndName(Agent agent, String assetName) {
-        for (Asset asset : assetService.findAssetsFromBalanceSheet(agent.getFinancialState().getBalanceSheet())) {
+        for (Asset asset : assetService.findAssetsByBalanceSheet(agent.getFinancialState().getBalanceSheet())) {
             if (asset.getName().equals(assetName)) {
                 return asset;
             }
