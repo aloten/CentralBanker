@@ -17,6 +17,11 @@ public class IndustryService {
     @Autowired
     EconomyService economyService;
 
+
+    public boolean companyIsIndustry(Company company, IndustryName industryName) {
+        return company.getIndustry().getName().equals(industryName);
+    }
+
     public Industry findIndustryByName(String name) {
         return industryRepository.findByName(name);
     }
@@ -38,5 +43,11 @@ public class IndustryService {
             industry.setRevenueShare(revenueShare);
             industryRepository.save(industry);
         }
+    }
+
+    public enum IndustryName {
+        banking,
+        manufacturing,
+        farming
     }
 }

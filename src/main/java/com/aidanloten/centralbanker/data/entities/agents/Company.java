@@ -1,6 +1,7 @@
 package com.aidanloten.centralbanker.data.entities.agents;
 
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.Industry;
+import com.aidanloten.centralbanker.data.entities.descriptors.economy.Modifier;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.FinancialState;
 import lombok.*;
 
@@ -31,4 +32,6 @@ public class Company implements Agent {
     private double b2bExpenditure;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private FinancialState financialState;
+    @OneToOne
+    private Modifier productionModifier;
 }

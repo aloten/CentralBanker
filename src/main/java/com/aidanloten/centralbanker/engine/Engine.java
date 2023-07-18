@@ -1,12 +1,12 @@
 package com.aidanloten.centralbanker.engine;
 
-import com.aidanloten.centralbanker.controllers.EconomyController;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.assets.Asset;
 import com.aidanloten.centralbanker.service.AssetService;
+import com.aidanloten.centralbanker.service.EconomyService;
 import com.aidanloten.centralbanker.service.GameStateService;
+import com.aidanloten.centralbanker.service.WebSocketService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,30 +14,31 @@ import java.util.List;
 @Component
 public class Engine {
     private final GameCycleService gameCycleService;
-    private final EconomyController economyControllerPersonTrading;
+    private final EconomyService economyService;
     private final GameStateService gameStateService;
     private final AssetService assetService;
-    private final SimpMessagingTemplate messagingTemplate;
+    private final WebSocketService webSocketService;
 
     Logger logger = LoggerFactory.getLogger(Engine.class);
     private Thread engineThread = null;
     private int cycleNumber = 0;
 
-    public Engine(GameCycleService gameCycleService, EconomyController economyControllerPersonTrading,
-                  GameStateService gameStateService, AssetService assetService,
-                  SimpMessagingTemplate messagingTemplate) {
+    public Engine(GameCycleService gameCycleService, EconomyService economyService, GameStateService gameStateService,
+                  AssetService assetService, WebSocketService webSocketService) {
         this.gameCycleService = gameCycleService;
-        this.economyControllerPersonTrading = economyControllerPersonTrading;
+        this.economyService = economyService;
         this.gameStateService = gameStateService;
         this.assetService = assetService;
-        this.messagingTemplate = messagingTemplate;
+        this.webSocketService = webSocketService;
     }
+
 
     public void start() {
         gameStateService.createNewRunningGameState();
         logger.info("Initializing economy");
-        economyControllerPersonTrading.initializeSystem();
-        economyControllerPersonTrading.displayEconomyStats();
+        // Currently "perfect economy initializer class" is set in economy service class
+        economyService.initializeSystem();
+        economyService.displayEconomyStats();
 
         logger.info("Starting game engine");
         // Start the game loop in a separate thread
@@ -113,7 +114,7 @@ public class Engine {
     private void syncDataToClient() {
         if (gameStateService.getShouldStreamPersonAssets()) {
             List<Asset> personAssets = getPersonInModalAssets();
-            messagingTemplate.convertAndSend("/topic/personAssets", personAssets);
+            webSocketService.sendMessageToTopic(WebSocketService.Topic.personAssets, personAssets);
         }
     }
 

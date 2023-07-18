@@ -1,29 +1,49 @@
 package com.aidanloten.centralbanker.service;
 
 import com.aidanloten.centralbanker.data.dao.economy.EconomyRepository;
+import com.aidanloten.centralbanker.data.entities.agents.Person;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.Economy;
+import com.aidanloten.centralbanker.data.util.InitialDataUtilityPerfectEconomy;
+import com.aidanloten.centralbanker.utils.CBUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class EconomyService {
+    // choose the type of economy here
+    private final InitialDataUtilityPerfectEconomy initialDataUtilityPerfectEconomy;
+
+    private final EconomyRepository economyRepository;
+    private final PersonService personService;
     Logger logger = LoggerFactory.getLogger(EconomyService.class);
-    @Autowired
-    EconomyRepository economyRepository;
-    @Autowired
-    CompanyService companyService;
-    @Autowired
-    PersonService personService;
+
+    public EconomyService(EconomyRepository economyRepository, PersonService personService,
+                          InitialDataUtilityPerfectEconomy initialDataUtilityPerfectEconomy) {
+        this.economyRepository = economyRepository;
+        this.personService = personService;
+        this.initialDataUtilityPerfectEconomy = initialDataUtilityPerfectEconomy;
+    }
+
+    public void displayEconomyStats() {
+        List<Person> people = personService.findAllPeople();
+        System.out.println("\n------- Economy Stats -------");
+        System.out.println("No. of people=" + people.size());
+        System.out.println("gdp=" + CBUtility.formatCurrency(getGDP()));
+        System.out.println("------------------------------\n");
+    }
+
+    public void initializeSystem() {
+        saveEconomy(new Economy());
+        initialDataUtilityPerfectEconomy.initializeSystem();
+    }
 
     public double getGDP() {
         return getEconomy().getGdp();
     }
-
-
 
     /**
      * Update gdp based on a strategy
@@ -72,20 +92,20 @@ public class EconomyService {
         return gdp;
     }
 
-//    private double calculateGDPBasedOnCompanyExpenditure() {
-//        double c = 0;
-//        double g = 0;
-//        double i = companyService.getSumOfAllB2BExpenses() + companyService.getSumOfAllEmployeeExpenses(); // assumes
-//        // all b2b expenditure
-//        // is investment
-//        double nx = 0;
-//        double gdp = c + g + i + nx;
-//        return gdp;
-//    }
+    //    private double calculateGDPBasedOnCompanyExpenditure() {
+    //        double c = 0;
+    //        double g = 0;
+    //        double i = companyService.getSumOfAllB2BExpenses() + companyService.getSumOfAllEmployeeExpenses(); //
+    //        assumes
+    //        // all b2b expenditure
+    //        // is investment
+    //        double nx = 0;
+    //        double gdp = c + g + i + nx;
+    //        return gdp;
+    //    }
 
     public Economy getEconomy() {
-        return economyRepository.findById(1)
-                .orElseThrow(() -> new NoSuchElementException("Economy not found"));
+        return economyRepository.findById(1).orElseThrow(() -> new NoSuchElementException("Economy not found"));
     }
 
     public void saveEconomy(Economy economy) {

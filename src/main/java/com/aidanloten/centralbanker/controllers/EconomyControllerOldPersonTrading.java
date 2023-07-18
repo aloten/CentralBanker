@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/economy")
-public class EconomyControllerPersonTrading implements EconomyController {
+public class EconomyControllerOldPersonTrading implements EconomyControllerOld {
     @Autowired
     InitialDataUtilityPersonTrading initialDataUtilityPersonTrading;
     @Autowired

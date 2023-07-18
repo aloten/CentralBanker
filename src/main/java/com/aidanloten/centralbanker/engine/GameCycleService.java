@@ -52,10 +52,10 @@ public class GameCycleService {
     }
 
     /**
-     * Potentially increase production modifiers and then create assets for people
+     * Potentially increase company production modifiers and then create assets for companies
      */
     public void executeAssetGeneration() {
-        potentiallyIncreaseProductionModifiers();
+//        potentiallyIncreaseProductionModifiers();
         p2PTradingAssetGeneratorStrategy.generateAssetsForCycle();
     }
 

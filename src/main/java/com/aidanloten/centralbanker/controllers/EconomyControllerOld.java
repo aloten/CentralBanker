@@ -4,7 +4,7 @@ import com.aidanloten.centralbanker.data.entities.descriptors.economy.Economy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-public interface EconomyController {
+public interface EconomyControllerOld {
     void startEngine();
 
     @GetMapping
