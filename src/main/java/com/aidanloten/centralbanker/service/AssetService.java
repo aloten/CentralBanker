@@ -22,7 +22,7 @@ public class AssetService {
     }
 
     public Asset getAssetPersonProduces(Person person) {
-        for (Asset asset : findAssetsFromPerson(person)) {
+        for (Asset asset : findAssetsOfPerson(person)) {
             if (isEqual(asset.getAssetType(), person.getAssetTypeProduces())) {
                 return asset;
             }
@@ -60,7 +60,7 @@ public class AssetService {
         return assetRepository.findByBalanceSheetId(balanceSheetId);
     }
 
-    public List<Asset> findAssetsFromBalanceSheet(BalanceSheet balanceSheet) {
+    public List<Asset> findAssetsByBalanceSheet(BalanceSheet balanceSheet) {
         return assetRepository.findByBalanceSheet(balanceSheet);
     }
 
@@ -69,7 +69,7 @@ public class AssetService {
     }
 
     public Asset findAssetByAssetType(Agent agent, AssetType assetType) {
-        for (Asset asset : findAssetsFromBalanceSheet(agent.getFinancialState().getBalanceSheet())) {
+        for (Asset asset : findAssetsByBalanceSheet(agent.getFinancialState().getBalanceSheet())) {
             if (isEqual(asset.getAssetType(), assetType)) {
                 return asset;
             }
@@ -109,7 +109,7 @@ public class AssetService {
         return assetTypeRepository.findByName("TOOL");
     }
 
-    public List<Asset> findAssetsFromPerson(Person seller) {
-        return findAssetsFromBalanceSheet(seller.getFinancialState().getBalanceSheet());
+    public List<Asset> findAssetsOfPerson(Person seller) {
+        return findAssetsByBalanceSheet(seller.getFinancialState().getBalanceSheet());
     }
 }

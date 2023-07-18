@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 @Component
@@ -38,9 +40,10 @@ public class Market {
 
     /**
      * @param buyer refers to the person whose needs we are focused on filling sequentially before processing another
-     *              participant. Assumes each participant only trades away 1 type of AssetType (the one they produce)
+     *              participant. Assumes each participant only trades away 1 type of AssetType (the one they
+     *              produce)
      */
-    private void performTrading(Person buyer) {
+    private void performTradingForPerson(Person buyer) {
         // get list of assets and quantity buyer needs
         ConsumptionRequirements consumptionRequirements = consumptionService.createConsumptionRequirements(buyer);
         while (consumptionRequirements.getConsumptionRequirements().size() > 0) {
@@ -53,8 +56,8 @@ public class Market {
     }
 
     /**
-     * trade assets from buyer of asset type which buyer produces
-     * for assets of seller of asset type which seller produces.
+     * trade assets from "buyer" of asset type which buyer produces
+     * for assets of "seller" of asset type which seller produces.
      * Quantity to transfer is as many seller assets as possible to fulfill buyer ConsumptionStrategy.
      * "Price" right now is 1:1 for every good based on constants
      */
@@ -65,14 +68,14 @@ public class Market {
         Asset assetSellerProduces = assetService.getAssetPersonProduces(seller);
         int quantitySellerAsset = assetService.getQuantityOfAssetPersonProduces(seller);
 
-        // fixed price, every good is 1:1 ratio for trading, maybe this will pull from a price map later
-        double priceRatioOfBuyerAssetToSellerAsset = 1;
-        // The minimum of quantity seller has, quantity buyer can afford, and quantity buyer wants
-        int quantitySellerAssetToTrade = (int) (Math.min(
-                Math.min(quantitySellerAsset, quantityBuyerAsset * priceRatioOfBuyerAssetToSellerAsset),
-                consumptionRequirement.getQuantity()));
+        Map<String, Integer> quantitiesToTrade = calculateTradeQuantities(quantitySellerAsset, quantityBuyerAsset,
+                consumptionRequirement.getQuantity());
+        int quantitySellerAssetToTrade = quantitiesToTrade.get("quantitySellerAssetToTrade");
+        int quantityBuyerAssetToTrade = quantitiesToTrade.get("quantityBuyerAssetToTrade");
 
-        int quantityBuyerAssetToTrade = (int) (quantitySellerAssetToTrade * (1 / priceRatioOfBuyerAssetToSellerAsset));
+        if (quantityBuyerAssetToTrade == 0) {
+            return;
+        }
 
         TradeTransaction tradeTransaction = new TradeTransaction(buyer, assetBuyerProduces, quantityBuyerAssetToTrade,
                 seller, assetSellerProduces, quantitySellerAssetToTrade);
@@ -80,11 +83,39 @@ public class Market {
     }
 
     /**
+     * Seller quantity should not be zero, because of earlier validation
+     */
+    private Map<String, Integer> calculateTradeQuantities(int quantitySellerAsset, int quantityBuyerAsset,
+                                                          int consumptionRequirementQuantity) {
+        Map<String, Integer> quantitiesToTrade = new HashMap<>();
+
+        // fixed price, every good is 1:1 ratio for trading, maybe this will pull from a price map later
+        double priceRatioOfBuyerAssetToSellerAsset = 1;
+        // minus one accounts for requirement of buyer not to give away all their asset they produce
+        int quantityBuyerCanAfford = (int) ((quantityBuyerAsset - 1) * priceRatioOfBuyerAssetToSellerAsset);
+        // minus one accounts for requirement of seller not to give away all their asset they produce
+        int quantitySellerCanSell = quantitySellerAsset - 1;
+        int quantityBuyerWantsAndCanAfford = Math.min(quantityBuyerCanAfford, consumptionRequirementQuantity);
+        // The minimum of quantity that seller markets AND quantity buyer wants and can afford
+        int quantitySellerAssetToTrade = Math.min(quantitySellerCanSell, quantityBuyerWantsAndCanAfford);
+
+        // only works with 1:1 pricing, otherwise if the value is a double then buyer trades less than they should,
+        // given certain prices when quantity gets chopped to an int
+        int quantityBuyerAssetToTrade = (int) (quantitySellerAssetToTrade * (1 / priceRatioOfBuyerAssetToSellerAsset));
+
+        quantitiesToTrade.put("quantitySellerAssetToTrade", quantitySellerAssetToTrade);
+        quantitiesToTrade.put("quantityBuyerAssetToTrade", quantityBuyerAssetToTrade);
+        return quantitiesToTrade;
+    }
+
+    /**
      * Check if the asset that seller produces is greater than the amount they need for their consumption
+     * Temporarily set threshold to > 1, because consumption requirements is transient and only accessible when person
+     * is going through buying stage
      */
     private boolean sellerHasValidQuantity(Person seller, AssetType assetType) {
-        for (Asset asset : assetService.findAssetsFromPerson(seller)) {
-            if (assetService.isEqual(asset.getAssetType(), assetType) && asset.getQuantity() > 0) {
+        for (Asset asset : assetService.findAssetsOfPerson(seller)) {
+            if (assetService.isEqual(asset.getAssetType(), assetType) && asset.getQuantity() > 1) {
                 return true;
             }
         }
@@ -97,9 +128,9 @@ public class Market {
      */
     private Person findSeller(AssetType assetType) {
         for (Person participant : participants) {
-            final boolean sellerSellsAssetTypeAndHasValidQuantity = assetService.isEqual(
+            final boolean sellerProducesAssetTypeAndHasValidQuantity = assetService.isEqual(
                     participant.getAssetTypeProduces(), assetType) && sellerHasValidQuantity(participant, assetType);
-            if (sellerSellsAssetTypeAndHasValidQuantity) {
+            if (sellerProducesAssetTypeAndHasValidQuantity) {
                 return participant;
             }
         }
@@ -110,7 +141,7 @@ public class Market {
     public void executeMarketCycle() {
         while (!participants.isEmpty()) {
             Person buyer = participants.poll();
-            performTrading(buyer);
+            performTradingForPerson(buyer);
         }
     }
 

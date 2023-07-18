@@ -81,16 +81,34 @@ public class InitialDataUtilityPersonTrading {
     }
 
     private void createPerson(int id, String jobTitle, AssetType assetTypeProduces) {
-        Person person = Person.builder().firstName(String.format("Person %d", id)).jobTitle(jobTitle)
+        Person person = Person.builder().firstName(String.format("%s %d", jobTitle, id)).jobTitle(jobTitle)
                 .assetTypeProduces(assetTypeProduces).build();
         personService.savePerson(person);
 
     }
 
     private void initializePeople() {
-        createPerson(1, "farmer", assetService.getFoodAssetType());
-        createPerson(2, "blacksmith", assetService.getToolAssetType());
-        createPerson(3, "lumberjack", assetService.getLumberAssetType());
+        createFarmers(33);
+        createBlacksmiths(33);
+        createLumberjacks(34);
+    }
+
+    private void createLumberjacks(int numberOfLumberjacks) {
+        for (int i = 0; i < numberOfLumberjacks; i++) {
+            createPerson(i, "lumberjack", assetService.getLumberAssetType());
+        }
+    }
+
+    private void createBlacksmiths(int numberOfBlacksmiths) {
+        for (int i = 0; i < numberOfBlacksmiths; i++) {
+            createPerson(i, "blacksmith", assetService.getToolAssetType());
+        }
+    }
+
+    private void createFarmers(int numberOfFarmers) {
+        for (int i = 0; i < numberOfFarmers; i++) {
+            createPerson(i, "farmer", assetService.getFoodAssetType());
+        }
     }
 
     private void readCsvTypeData() {

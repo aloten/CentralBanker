@@ -45,7 +45,6 @@ const Dashboard = () => {
     setIsPersonModalOpen(false);
   };
 
-  console.log('dashboard remounting');
   // logic for requesting websocket data for person modal
   useEffect(() => {
     if (isPersonModalOpen && selectedPersonForModal) {
