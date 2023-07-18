@@ -4,7 +4,6 @@ import com.aidanloten.centralbanker.controllers.EconomyController;
 import com.aidanloten.centralbanker.data.entities.descriptors.economy.finance.assets.Asset;
 import com.aidanloten.centralbanker.service.AssetService;
 import com.aidanloten.centralbanker.service.GameStateService;
-import com.aidanloten.centralbanker.service.SseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -17,7 +16,6 @@ public class Engine {
     private final GameCycleService gameCycleService;
     private final EconomyController economyControllerPersonTrading;
     private final GameStateService gameStateService;
-    private final SseService sseService;
     private final AssetService assetService;
     private final SimpMessagingTemplate messagingTemplate;
 
@@ -26,12 +24,11 @@ public class Engine {
     private int cycleNumber = 0;
 
     public Engine(GameCycleService gameCycleService, EconomyController economyControllerPersonTrading,
-                  GameStateService gameStateService, SseService sseService, AssetService assetService,
+                  GameStateService gameStateService, AssetService assetService,
                   SimpMessagingTemplate messagingTemplate) {
         this.gameCycleService = gameCycleService;
         this.economyControllerPersonTrading = economyControllerPersonTrading;
         this.gameStateService = gameStateService;
-        this.sseService = sseService;
         this.assetService = assetService;
         this.messagingTemplate = messagingTemplate;
     }
@@ -110,11 +107,10 @@ public class Engine {
         }
     }
 
+    /**
+     * Uses Websocket
+     */
     private void syncDataToClient() {
-        // using SSE, replacing with WS
-        syncAssets();
-
-        // Web socket (WS), sync person assets
         if (gameStateService.getShouldStreamPersonAssets()) {
             List<Asset> personAssets = getPersonInModalAssets();
             messagingTemplate.convertAndSend("/topic/personAssets", personAssets);
@@ -126,7 +122,4 @@ public class Engine {
         return assetService.findAssetsByBalanceSheetId(balanceSheetId);
     }
 
-    private void syncAssets() {
-        sseService.syncAssetsOfPersonInModal();
-    }
 }
